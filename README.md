@@ -1,4 +1,4 @@
-# A Deep Neural Network for Plasma Tomography
+# Deep Neural Network for Plasma Tomography
 
 ### Instructions
 
