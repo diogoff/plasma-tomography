@@ -22,7 +22,9 @@
 
     - It will create two output files: `X_train.npy` and `Y_train.npy`.
 
+- Run `TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_train.py` to train the network.
 
+    - Before running this command, 
 
 ### References
 
