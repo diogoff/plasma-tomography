@@ -1,5 +1,17 @@
 # A Deep Neural Network for Plasma Tomography
 
+
+### Requirements
+
+- CUDA 8.0 or later
+
+- cuDNN 6.0 or later
+
+- TensorFlow 1.4 or later
+
+- Keras 2.1 or later
+
+
 ### Instructions
 
 - Run `python get_data.py` to get all the available tomographic reconstructions from bolometer data.
@@ -24,7 +36,18 @@
 
 - Run `TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_train.py` to train the network.
 
-    - Before running this command, 
+    - Before running this command, set the `gpus` parameter in `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
+    
+        - `gpus` should be the number of GPUs available in your machine.
+        
+        - `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while at the same time being bound by GPU memory available.
+
+    - Training will finish automatically once there is no hope of further improving the validation loss.
+    
+    - The model parameters corresponding to the minimum validation loss will be saved in `model_weights.hdf`.
+
+- (Optional) During training, run `python plot_train.py` to see the evolution of loss and validation loss, as well as the epoch where the minimum validation loss was achieved.
+
 
 ### References
 
