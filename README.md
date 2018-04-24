@@ -2,11 +2,22 @@
 
 ### Instructions
 
-- Run `python get_data.py` to get all the tomographic reconstructions produced by TOMO5.
+- Run `python get_tomo.py` to get all the available tomographic reconstructions from bolometer data.
 
     - This will only work from within the JET computing clusters (JAC or Freia).
 
     - It will produce an output file called `tomo_data.hdf`.
+
+- (Optional) Run `python read_data.py` to check that the file `tomo_data.hdf` is readable.
+
+- (Optional) Run `python plot_data.py` to plot some sample reconstructions.
+
+    - Sample reconstructions will be selected randomly.
+    
+    - Hit Ctrl-C to finish.
+
+
+
 
 ### References
 
