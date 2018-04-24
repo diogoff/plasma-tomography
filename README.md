@@ -3,9 +3,7 @@
 
 ### Requirements
 
-- Keras
-
-- TensorFlow
+- Keras, TensorFlow
 
 
 ### Instructions
