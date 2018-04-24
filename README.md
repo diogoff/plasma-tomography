@@ -3,8 +3,9 @@
 
 ### Requirements
 
-- Keras, TensorFlow
+- CUDA, cuDNN
 
+- Keras, TensorFlow
 
 ### Instructions
 
