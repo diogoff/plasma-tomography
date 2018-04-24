@@ -14,7 +14,7 @@
 
     - Sample reconstructions will be selected randomly.
     
-    - Hit Ctrl-C to finish.
+    - Hit `Ctrl-C` to finish.
 
 - Run `python input_data.py` to create the arrays that will be used as input to train the network.
 
