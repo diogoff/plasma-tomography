@@ -3,17 +3,9 @@
 
 ### Requirements
 
-This code was tested with the following (outdated) configuration:
+- Keras
 
-- CUDA 8.0
-
-- cuDNN 6.0
-
-- TensorFlow 1.4.1
-
-- Keras 2.1.6
-
-It should run without issues with newer versions of this software.
+- TensorFlow
 
 
 ### Instructions
