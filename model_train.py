@@ -101,7 +101,7 @@ mc = MyCallback()
 try:
     parallel_model.fit(X_train, Y_train,
                        batch_size=11200,
-                       epochs=1000000,
+                       epochs=100000,
                        verbose=0,
                        callbacks=[mc],
                        validation_data=(X_valid, Y_valid))
