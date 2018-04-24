@@ -17,9 +17,7 @@
 
 - (Optional) Run `python plot_data.py` to plot some sample reconstructions.
 
-    - Sample reconstructions will be selected randomly.
-    
-    - Hit `Ctrl-C` to finish.
+    - Sample reconstructions will be selected randomly. Hit `Ctrl-C` to finish.
 
 - Run `python input_data.py` to create the arrays that will be used as input to train the network.
 
@@ -31,9 +29,9 @@
 
     - Before running this command, set the `gpus` parameter in `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
     
-        - `gpus` should be set to the number of GPUs available in your machine.
+        - The `gpus` parameter should be set to the number of GPUs available in your machine.
         
-        - `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while being bound by the amount of GPU memory available.
+        - The `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while being bound by the available GPU memory.
 
     - Training will finish automatically once there is no hope of improving the validation loss.
     
