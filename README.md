@@ -3,8 +3,6 @@
 
 ### Requirements
 
-- CUDA, cuDNN
-
 - Keras, TensorFlow
 
 ### Instructions
@@ -33,15 +31,17 @@
 
     - Before running this command, set the `gpus` parameter in `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
     
-        - `gpus` should be the number of GPUs available in your machine.
+        - `gpus` should be set to the number of GPUs available in your machine.
         
-        - `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while at the same time being bound by GPU memory available.
+        - `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while being bound by the amount of GPU memory available.
 
-    - Training will finish automatically once there is no hope of further improving the validation loss.
+    - Training will finish automatically once there is no hope of improving the validation loss.
     
     - The model parameters corresponding to the minimum validation loss will be saved in `model_weights.hdf`.
 
-- (Optional) During training, run `python plot_train.py` to see the evolution of loss and validation loss, as well as the epoch where the minimum validation loss was achieved.
+- (Optional) During training, run `python plot_train.py` to see how loss and validation loss are evolving.
+
+    - The plot will also indicate the epoch where the minimum validation loss was achieved.
 
 
 ### References
