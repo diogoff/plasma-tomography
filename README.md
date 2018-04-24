@@ -3,13 +3,15 @@
 
 ### Requirements
 
-- CUDA 8.0 or later
+This code was tested with the following configuration:
 
-- cuDNN 6.0 or later
+- CUDA 8.0
 
-- TensorFlow 1.4 or later
+- cuDNN 6.0
 
-- Keras 2.1 or later
+- TensorFlow 1.4.1
+
+- Keras 2.1.6
 
 
 ### Instructions
