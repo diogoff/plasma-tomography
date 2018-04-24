@@ -1,14 +1,14 @@
-# Deep Neural Network for Plasma Tomography
+# A Deep Neural Network for Plasma Tomography
 
 ### Instructions
 
-1. Run `python get_data.py` to get all of the existing tomographic reconstructions produced by TOMO5.
+- Run `python get_data.py` to get all the tomographic reconstructions produced by TOMO5.
 
-    - This will only from within the JET computing clusters (JAC or Freia).
+    - This will only work from within the JET computing clusters (JAC or Freia).
 
     - It will produce an output file called `tomo_data.hdf`.
 
-### Papers
+### References
 
 - [Full-Pulse Tomographic Reconstruction with Deep Neural Networks](https://arxiv.org/pdf/1802.02242.pdf) - D. R. Ferreira, P. J. Carvalho, H. Fernandes (2018)
 
