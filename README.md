@@ -1,8 +1,8 @@
-# Deep Neural Network for Plasma Tomography
+# A Deep Neural Network for Plasma Tomography
 
 ### Instructions
 
-- Run `python get_tomo.py` to get all the available tomographic reconstructions from bolometer data.
+- Run `python get_data.py` to get all the available tomographic reconstructions from bolometer data.
 
     - This will only work from within the JET computing clusters (JAC or Freia).
 
@@ -16,6 +16,11 @@
     
     - Hit Ctrl-C to finish.
 
+- Run `python input_data.py` to create the arrays that will be used as input to train the network.
+
+    - This script will use the file `tomo_data.hdf` as input.
+
+    - It will create two output files: `X_train.npy` and `Y_train.npy`.
 
 
 
