@@ -23,7 +23,7 @@ def create_model():
     model.add(Conv2DTranspose(20, kernel_size=(5,5), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2DTranspose(1, kernel_size=(5,5), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(1, kernel_size=(1,1), strides=(1,1)))
     model.add(Activation('relu'))
     
     model.summary()
