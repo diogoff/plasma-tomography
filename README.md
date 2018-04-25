@@ -7,37 +7,37 @@
 
 ### Instructions
 
-- Run `python get_data.py` to get all the available tomographic reconstructions from bolometer data.
+1. Run `python get_data.py` to get all of the available tomographic reconstructions from bolometer data.
 
-    - This will only work from within the JET computing clusters (JAC or Freia).
+    - This will only work from within a JET computing cluster (JAC or Freia).
 
     - It will produce an output file called `tomo_data.hdf`.
 
-- (Optional) Run `python read_data.py` to check that the file `tomo_data.hdf` is readable.
+2. (Optional) Run `python read_data.py` to check that the file `tomo_data.hdf` is readable.
 
-- (Optional) Run `python plot_data.py` to plot some sample reconstructions.
+3. (Optional) Run `python plot_data.py` to plot some sample reconstructions.
 
     - Sample reconstructions will be selected randomly. Hit `Ctrl-C` to finish.
 
-- Run `python input_data.py` to create the arrays that will be used as input to train the network.
+4. Run `python input_data.py` to create the arrays that will be used as input to train the network.
 
-    - This script will use the file `tomo_data.hdf` as input.
+    - The script will use `tomo_data.hdf` as input.
 
     - It will create two output files: `X_train.npy` and `Y_train.npy`.
 
-- Run `TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_train.py` to train the network.
+5. Run `TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_train.py` to train the network.
 
-    - Before running this command, set the `gpus` parameter in `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
+    - Before running this command, set the `gpus` parameter in the call to `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
     
-        - The `gpus` parameter should be set to the number of GPUs available in your machine.
+        - `gpus` should be set to the number of available GPUs.
         
-        - The `batch_size` should be a multiple of `gpus` and a divisor of the number of samples used for training, while being bound by the available GPU memory.
+        - `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples. Pick the largest such value within the constraints of available GPU memory.
 
-    - Training will finish automatically once there is no hope of improving the validation loss.
+    - Training will finish automatically once there is no hope of improving the validation loss further.
     
     - The model parameters corresponding to the minimum validation loss will be saved in `model_weights.hdf`.
 
-- (Optional) During training, run `python plot_train.py` to see how loss and validation loss are evolving.
+6. (Optional) During training, run `python plot_train.py` to see how loss and validation loss are evolving.
 
     - The plot will also indicate the epoch where the minimum validation loss was achieved.
 
