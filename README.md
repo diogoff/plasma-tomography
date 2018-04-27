@@ -46,7 +46,7 @@
 
     - This script does not need to be run on the GPU, it can run with TensorFlow on the CPU.
     
-    - It needs `X_train.npy` and `Y_train.npy` to extract the validation data.
+    - It needs `X_train.npy` and `Y_train.npy` in order to extract the validation data.
     
     - After running the script, check that `val_loss` is the same (apart from some rounding errors) as indicated by `plot_train.py` (see previous step).
 
