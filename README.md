@@ -10,7 +10,7 @@
 
 1. Run `get_data.py` to get all of the available tomographic reconstructions from bolometer data.
 
-    - This script will only work from within one of the JET computing clusters (JAC or Freia).
+    - This script will only work from within a JET computing cluster (JAC or Freia).
 
     - It will produce an output file called `tomo_data.hdf`.
 
@@ -49,6 +49,16 @@
     - It needs `X_train.npy` and `Y_train.npy` in order to extract the validation data.
     
     - After running this script, check that `val_loss` is the same as reported by `plot_train.py` (apart from some rounding error).
+
+8. Run `model_test.py` to test the model on a given pulse.
+
+    - Before running this script, set `pulse` to the desired pulse, `t0` to the start time, and `step` to the desired time increment.
+
+    - Since it needs to grab the test data, this script will only work from within a JET computing cluster (JAC or Freia).
+
+    - It does not need to be run on the GPU, it can run with TensorFlow on the CPU.
+
+    - It will produce an output file called `tomo_test.hdf`.
 
 
 ### References
