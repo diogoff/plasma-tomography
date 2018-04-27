@@ -82,5 +82,6 @@ f = h5py.File(fname, 'w')
 g = f.create_group(str(pulse))
 g.create_dataset('tomo', data=tomo)
 g.create_dataset('tomo_t', data=tomo_t)
+g.create_dataset('step', data=[step])
 
 f.close()
