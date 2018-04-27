@@ -8,27 +8,27 @@
 
 ### Instructions
 
-1. Run `python get_data.py` to get all of the available tomographic reconstructions from bolometer data.
+1. Run `get_data.py` to get all of the available tomographic reconstructions from bolometer data.
 
-    - This will only work from within a JET computing cluster (JAC or Freia).
+    - This script will only work from within one of the JET computing clusters (JAC or Freia).
 
     - It will produce an output file called `tomo_data.hdf`.
 
-2. (Optional) Run `python read_data.py` to check that the file `tomo_data.hdf` is readable.
+2. (Optional) Run `read_data.py` to check that the file `tomo_data.hdf` is readable.
 
-3. (Optional) Run `python plot_data.py` to plot some sample reconstructions.
+3. (Optional) Run `plot_data.py` to plot some sample reconstructions.
 
     - Sample reconstructions will be selected randomly. Hit `Ctrl-C` to finish.
 
-4. Run `python input_data.py` to create the arrays that will be used as input to train the network.
+4. Run `input_data.py` to create the arrays that will be used as input to train the network.
 
     - The script will use `tomo_data.hdf` as input.
 
     - It will create two output files: `X_train.npy` and `Y_train.npy`.
 
-5. Run `TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_train.py` to train the network.
+5. Run `model_train.py` to train the network.
 
-    - Before running this command, set the `gpus` parameter in the call to `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
+    - Before running this script, set the `gpus` parameter in the call to `multi_gpu_model()` and set the `batch_size` to be used in `parallel_model.fit()`.
     
         - `gpus` should be set to the number of available GPUs.
         
@@ -38,19 +38,17 @@
     
     - The model parameters corresponding to the minimum validation loss will be saved in `model_weights.hdf`.
 
-6. (Optional) During training, run `python plot_train.py` to see how loss and validation loss are evolving.
+6. (Optional) During training, run `plot_train.py` to see how loss and validation loss are evolving.
 
     - The plot will also indicate the epoch where the minimum validation loss was achieved.
     
-7. (Optional) After training, run `CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_validate.py` to test the model on the validation data.
+7. (Optional) After training, run `model_validate.py` to test the model on the validation data.
 
-    - Before running this command, set the `batch_size` to be used in `model.predict()`.
-   
-        - `batch_size` should be an approximate divisor of the number of validation samples. Pick this value according to the constraints of available GPU memory.
-
-    - Only one GPU will be used for testing, hence `CUDA_VISIBLE_DEVICES=0`. If needed, change this to the desired GPU.
+    - This script does not need to be run on the GPU, it can run with TensorFlow on the CPU.
     
-    - After running this command, check that `val_loss` is the same (apart from some rounding errors) as indicated by `plot_train.py` (see previous step).
+    - It needs `X_train.npy` and `Y_train.npy` to extract the validation data.
+    
+    - After running the script, check that `val_loss` is the same (apart from some rounding errors) as indicated by `plot_train.py` (see previous step).
 
 
 ### References
