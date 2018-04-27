@@ -48,7 +48,7 @@
     
     - It needs `X_train.npy` and `Y_train.npy` in order to extract the validation data.
     
-    - After running the script, check that `val_loss` is the same (apart from some rounding errors) as indicated by `plot_train.py` (see previous step).
+    - After running this script, check that `val_loss` is the same as reported by `plot_train.py` (apart from some rounding error).
 
 
 ### References
