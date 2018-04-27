@@ -5,6 +5,7 @@
 
 - Keras, TensorFlow
 
+
 ### Instructions
 
 1. Run `python get_data.py` to get all of the available tomographic reconstructions from bolometer data.
@@ -40,7 +41,7 @@
 6. (Optional) During training, run `python plot_train.py` to see how loss and validation loss are evolving.
 
     - The plot will also indicate the epoch where the minimum validation loss was achieved.
-
+    
 7. (Optional) After training, run `CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_validate.py` to test the model on the validation data.
 
     - Before running this command, set the `batch_size` to be used in `model.predict()`.
