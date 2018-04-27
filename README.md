@@ -41,6 +41,16 @@
 
     - The plot will also indicate the epoch where the minimum validation loss was achieved.
 
+7. (Optional) After training, run `CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=3 python -W ignore model_validate.py` to test the model on the validation data.
+
+    - Before running this command, set the `batch_size` to be used in `model.predict()`.
+   
+        - `batch_size` should be an approximate divisor of the number of validation samples. Pick this value according to the constraints of available GPU memory.
+
+    - Only one GPU will be used for testing, hence `CUDA_VISIBLE_DEVICES=0`. If needed, change this to the desired GPU.
+    
+    - After running this command, check that `val_loss` is the same (apart from some rounding errors) as indicated by `plot_train.py` (see previous step).
+
 
 ### References
 
