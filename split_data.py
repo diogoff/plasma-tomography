@@ -45,10 +45,16 @@ Y_train = Y_all[(r % 10) != 0]
 X_valid = X_all[(r % 10) == 0]
 Y_valid = Y_all[(r % 10) == 0]
 
+print('X_train:', X_train.shape, X_train.dtype)
+print('Y_train:', Y_train.shape, Y_train.dtype)
+
+print('X_valid:', X_valid.shape, X_valid.dtype)
+print('Y_valid:', Y_valid.shape, Y_valid.dtype)
+
 # ----------------------------------------------------------------------
 
 def save(array, fname):
-    print('Writing:', fname, array.shape, array.dtype)
+    print('Writing:', fname)
     np.save(fname, array)
 
 save(X_train, 'X_train.npy')
