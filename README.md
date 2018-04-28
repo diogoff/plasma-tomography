@@ -10,13 +10,11 @@
 
 - Run `train_data.py` to get all the available tomographic reconstructions from bolometer data.
 
-    - This script will run only on a JET computing cluster (JAC or Freia).
+    - This script will only run on a JET computing cluster (JAC or Freia).
 
-    - It will create an output file called `train_data.hdf`.
+    - An output file `train_data.hdf` will be created.
 
-- Run `split_data.py` to split the train data into train set and validation set.
-
-    - This will create `X_train.npy`, `Y_train.npy`, `X_valid.npy`, and `Y_valid.npy`.
+- Run `split_data.py` to split the train data into train set (`X_train.npy`, `Y_train.npy`) and validation set (`X_valid.npy`, and `Y_valid.npy`).
 
 - Run `model_train.py` to train the model.
 
