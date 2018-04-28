@@ -14,7 +14,7 @@
 
     - An output file `train_data.hdf` will be created.
 
-- Run `split_data.py` to split the training data into training set and validation set.
+- Run `split_data.py` to split the train data into training set and validation set.
 
     - This will create `X_train.npy`, `Y_train.npy`, `X_valid.npy`, and `Y_valid.npy`.
 
