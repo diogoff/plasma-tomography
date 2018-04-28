@@ -7,7 +7,7 @@ np.random.seed(0)
 # ----------------------------------------------------------------------
 
 def load(fname):
-    print('Reading:', fname, end='', flush=True)
+    print('Reading:', fname)
     array = np.load(fname)
     print(array.shape, array.dtype)
     return array
