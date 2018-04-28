@@ -78,7 +78,7 @@ class MyCallback(Callback):
             log_print('%-10s %5d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
         else:
             log_print('%-10s %5d %10.6f %10.6f' % (t, epoch, loss, val_loss))
-        if epoch >= 2*self.min_val_epoch:
+        if (epoch >= 1000) and (epoch >= 2*self.min_val_epoch):
             print('Stop training.')
             parallel_model.stop_training = True
 
