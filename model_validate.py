@@ -7,22 +7,13 @@ np.random.seed(0)
 # ----------------------------------------------------------------------
 
 def load(fname):
+    print('Reading:', fname, end='', flush=True)
     array = np.load(fname)
-    print('Reading:', fname, array.shape, array.dtype)
+    print(array.shape, array.dtype)
     return array
-
-X_train = load('X_train.npy')
-Y_train = load('Y_train.npy')
-
-# ----------------------------------------------------------------------
-
-r = np.arange(X_train.shape[0])
-
-X_valid = X_train[r % 10 == 0]
-Y_valid = Y_train[r % 10 == 0]
-
-print('X_valid:', X_valid.shape)
-print('Y_valid:', Y_valid.shape)
+    
+X_valid = load('X_valid.npy')
+Y_valid = load('Y_valid.npy')
 
 # ----------------------------------------------------------------------
 

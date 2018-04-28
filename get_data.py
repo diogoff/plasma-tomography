@@ -1,13 +1,10 @@
 from __future__ import print_function
 
-import h5py
 import numpy as np
 from ppf import *
 
 ppfgo()
 ppfssr(i=[0,1,2,3,4])
-
-# -------------------------------------------------------------------------------
 
 def get_tomo(pulse):
     ppfuid('bolom', 'r')
@@ -25,46 +22,33 @@ def get_tomo(pulse):
         tomo = np.array(tomo)
         tomo_t = np.array(tomo_t)
         print(pulse, 'tomo:', tomo.shape, tomo.dtype)
+        print(pulse, 'tomo_t:', tomo_t.shape, tomo_t.dtype)
     return tomo, tomo_t
 
-def get_kb5(pulse, tomo_t):
+def get_bolo(pulse, bolo_t):
     dt = 0.0025
     ppfuid('jetppf', 'r')
     ihdata, iwdata, kb5h, x, kb5h_t, ier = ppfget(pulse, 'bolo', 'kb5h', reshape=1)
     ihdata, iwdata, kb5v, x, kb5v_t, ier = ppfget(pulse, 'bolo', 'kb5v', reshape=1)
-    print(pulse, 'kb5h:', kb5h.shape, kb5h.dtype)
-    print(pulse, 'kb5v:', kb5v.shape, kb5v.dtype)
     assert np.all(kb5h_t == kb5v_t)
+    kb5 = np.hstack((kb5h, kb5v))
     kb5_t = kb5h_t
-    kb5 = []
-    for t in tomo_t:
+    t0 = kb5_t[0]
+    t1 = kb5_t[-1]-2.*dt
+    if bolo_t[0] < t0:
+        i = np.argmin(np.fabs(bolo_t - t0))
+        bolo_t = bolo_t[i:]
+    if bolo_t[-1] > t1:
+        i = np.argmin(np.fabs(bolo_t - t1))
+        bolo_t = bolo_t[:i+1]
+    bolo = []
+    for t in bolo_t:
         i0 = np.argmin(np.fabs(kb5_t - t))
         i1 = np.argmin(np.fabs(kb5_t - (t + 2.*dt)))
-        print('%10d %10.4f %10d %10d %10d %10.4f %10.4f' % (len(kb5)+1, t, i0, i1, i1-i0+1, kb5_t[i0], kb5_t[i1]))
-        hstack = np.hstack((kb5h[i0:i1+1], kb5v[i0:i1+1]))
-        mean = np.mean(hstack, axis=0)
-        kb5.append(mean)
-    kb5 = np.array(kb5)
-    print(pulse, 'kb5:', kb5.shape, kb5.dtype)
-    return kb5
-
-# -------------------------------------------------------------------------------
-
-fname = 'tomo_data.hdf'
-print('Writing:', fname)
-f = h5py.File(fname, 'w')
-
-pulse0 = 80128
-pulse1 = 92504
-
-for pulse in range(pulse0, pulse1+1):
-    tomo, tomo_t = get_tomo(pulse)
-    if len(tomo) > 0:
-        kb5 = get_kb5(pulse, tomo_t)
-        g = f.create_group(str(pulse))
-        g.create_dataset('tomo', data=tomo)
-        g.create_dataset('tomo_t', data=tomo_t)
-        g.create_dataset('kb5', data=kb5)
-        print('-'*76)
-
-f.close()
+        mean = np.mean(kb5[i0:i1+1], axis=0)
+        bolo.append(mean)
+        print('%10d %10.4f %10d %10d %10d %10.4f %10.4f' % (len(bolo), t, i0, i1, i1-i0+1, kb5_t[i0], kb5_t[i1]))
+    bolo = np.array(bolo)
+    print(pulse, 'bolo:', bolo.shape, bolo.dtype)
+    print(pulse, 'bolo_t:', bolo_t.shape, bolo_t.dtype)
+    return bolo, bolo_t

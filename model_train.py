@@ -7,28 +7,16 @@ np.random.seed(0)
 # ----------------------------------------------------------------------
 
 def load(fname):
+    print('Reading:', fname, end='', flush=True)
     array = np.load(fname)
-    print('Reading:', fname, array.shape, array.dtype)
+    print(array.shape, array.dtype)
     return array
-
+    
 X_train = load('X_train.npy')
 Y_train = load('Y_train.npy')
 
-# ----------------------------------------------------------------------
-
-r = np.arange(X_train.shape[0])
-
-X_valid = X_train[r % 10 == 0]
-Y_valid = Y_train[r % 10 == 0]
-
-X_train = X_train[r % 10 != 0]
-Y_train = Y_train[r % 10 != 0]
-
-print('X_train:', X_train.shape)
-print('Y_train:', Y_train.shape)
-
-print('X_valid:', X_valid.shape)
-print('Y_valid:', Y_valid.shape)
+X_valid = load('X_valid.npy')
+Y_valid = load('Y_valid.npy')
 
 # ----------------------------------------------------------------------
 
@@ -51,7 +39,7 @@ with tf.device('/cpu:0'):
 
 parallel_model = multi_gpu_model(model, gpus=8)
 
-opt = Adam(lr=1e-4)
+opt = Adam(lr=1e-3)
 
 parallel_model.compile(loss='mae', optimizer=opt)
 
@@ -91,7 +79,7 @@ class MyCallback(Callback):
         else:
             log_print('%-10s %5d %10.6f %10.6f' % (t, epoch, loss, val_loss))
         if epoch >= 2*self.min_val_epoch:
-            print('Stopping training.')
+            print('Stop training.')
             parallel_model.stop_training = True
 
 # ----------------------------------------------------------------------
