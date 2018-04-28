@@ -7,7 +7,7 @@ from matplotlib.colors import LinearSegmentedColormap
 
 # ----------------------------------------------------------------------
 
-colors = [ # (0, 0, 255),
+colors = [(0, 0, 255),
           (51, 0, 255),
           (76, 0, 255),
           (102, 0, 255),
@@ -38,37 +38,46 @@ cmap = LinearSegmentedColormap.from_list('jet', colors, N=2048)
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_test.hdf'
+fname = 'test_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-for pulse in f:
-    g = f[pulse]
-    tomo = g['tomo'][:]
-    tomo_t = g['tomo_t'][:]
-    step = g['step'][0]
+pulse = f.keys()[0]
 
-    print('pulse:', pulse)
-    print('tomo:', tomo.shape, tomo.dtype)
-    print('tomo_t:', tomo_t.shape, tomo_t.dtype)
-    print('step:', step)
+g = f[pulse]
+bolo = g['bolo'][:]
+bolo_t = g['bolo_t'][:]
+tomo = g['tomo'][:]
+tomo_t = g['tomo_t'][:]
+
+print(pulse, 'bolo:', bolo.shape, bolo.dtype)
+print(pulse, 'bolo_t:', bolo_t.shape, bolo_t.dtype)
+print(pulse, 'tomo:', tomo.shape, tomo.dtype)
+print(pulse, 'tomo_t:', tomo_t.shape, tomo_t.dtype)
 
 f.close()
 
 # ----------------------------------------------------------------------
 
 vmax = 1.5
-digits = len(str(step).split('.')[-1])
+print('vmax:', vmax)
+
+step = np.mean(tomo_t[1:]-tomo_t[:-1])
+digits = 0
+while round(step*10.**digits) == 0.:
+    digits += 1
+
+# ----------------------------------------------------------------------
 
 nrows = 4
 ncols = 15
 k = 0
-while k < len(tomo):
+while k < tomo.shape[0]:
     k0 = k
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols)
     for i in range(nrows):
         for j in range(ncols):
-            if k < len(tomo):
+            if k < tomo.shape[0]:
                 im = ax[i,j].imshow(tomo[k], cmap=cmap,
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
