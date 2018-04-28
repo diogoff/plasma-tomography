@@ -3,38 +3,7 @@ from __future__ import print_function
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
-
-# ----------------------------------------------------------------------
-
-colors = [(0, 0, 255),
-          (51, 0, 255),
-          (76, 0, 255),
-          (102, 0, 255),
-          (127, 0, 255),
-          (153, 0, 255),
-          (179, 0, 255),
-          (204, 0, 255),
-          (229, 0, 255),
-          (255, 0, 255),
-          (255, 0, 0),
-          (255, 51, 0),
-          (255, 76, 0),
-          (255, 102, 0),
-          (255, 127, 0),
-          (255, 153, 0),
-          (255, 179, 0),
-          (255, 204, 0),
-          (255, 229, 0),
-          (255, 255, 0),
-          (255, 255, 51),
-          (255, 255, 102),
-          (255, 255, 153),
-          (255, 255, 204),
-          (255, 255, 255)]
-
-colors = np.array(colors, dtype=np.float64)/255.
-cmap = LinearSegmentedColormap.from_list('jet', colors, N=2048)
+from cmap import *
 
 # ----------------------------------------------------------------------
 
@@ -60,7 +29,7 @@ f.close()
 # ----------------------------------------------------------------------
 
 vmax = 1.5
-print('vmax:', vmax)
+print('vmax:', vmax, 'MW/m3')
 
 step = np.mean(tomo_t[1:]-tomo_t[:-1])
 digits = 0
@@ -78,7 +47,7 @@ while k < tomo.shape[0]:
     for i in range(nrows):
         for j in range(ncols):
             if k < tomo.shape[0]:
-                im = ax[i,j].imshow(tomo[k], cmap=cmap,
+                im = ax[i,j].imshow(tomo[k], cmap=jet_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
                 title = 't=%.*fs' % (digits, tomo_t[k])
