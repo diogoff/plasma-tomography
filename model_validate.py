@@ -7,13 +7,14 @@ np.random.seed(0)
 # ----------------------------------------------------------------------
 
 def load(fname):
-    print('Reading:', fname, end='', flush=True)
-    array = np.load(fname)
-    print(array.shape, array.dtype)
-    return array
+    print('Reading:', fname)
+    return np.load(fname)
     
 X_valid = load('X_valid.npy')
 Y_valid = load('Y_valid.npy')
+
+print('X_valid:', X_valid.shape, X_valid.dtype)
+print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 # ----------------------------------------------------------------------
 
