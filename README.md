@@ -8,7 +8,7 @@
 
 ### Instructions
 
-- Run `train_data.py` to get all the available tomographic reconstructions from bolometry.
+- Run `train_data.py` to get all the available tomographic reconstructions from bolometer data.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
 
@@ -24,7 +24,7 @@
 
         - In the call to `multi_gpu_model()`, the `gpus` parameter should be set to the number of available GPUs.
         
-        - In `parallel_model.fit()`, `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples. Pick the largest value within the constraints of GPU memory.
+        - In `parallel_model.fit()`, `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples. Pick the largest value within the constraints of the available GPU memory.
 
     - Training will finish automatically once the validation loss no longer improves.
     
@@ -46,7 +46,7 @@
 
     - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster.
     
-    - Also, Tensorflow and Keras need to be installed.
+    - Also, Tensorflow and Keras need to be installed for this script to run.
     
     - An output file `test_data.hdf` will be created.
 
