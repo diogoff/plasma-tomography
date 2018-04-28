@@ -36,4 +36,4 @@ print('Y_pred:', Y_pred.shape)
 
 val_loss = np.mean(np.abs(Y_valid-Y_pred))
 
-print('val_loss:', val_loss)
+print('val_loss: %.6f' % val_loss)
