@@ -22,9 +22,9 @@
 
     - Before running this script, set the number of GPUs and the batch size accordingly.
 
-        - In the call to `multi_gpu_model()`, the `gpus` parameter should be the number of GPUs available in your machine.
+        - In the call to `multi_gpu_model()`, `gpus` should be set to the number of available GPUs.
         
-        - In `parallel_model.fit()`, `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples, bound by the available GPU memory.
+        - In `parallel_model.fit()`, `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples. Pick the largest value within the constraints of GPU memory.
 
     - Training will finish automatically once the validation loss no longer improves.
     
