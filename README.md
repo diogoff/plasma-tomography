@@ -32,9 +32,19 @@
     
 - After training, run `model_validate.py` to test the model on the validation data.
 
-    - This script does not need to be run on the GPU, it can run with TensorFlow on the CPU.
+    - This script does not need to run on the GPU, it can run with TensorFlow on the CPU.
     
     - Check that the reported `val_loss` is the same as indicated by `plot_train.py`.
+
+- Run `model_test.py` to test the model on a given pulse.
+
+    - Before running this script, set the pulse, the start time, and the time step.
+
+    - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster (JAC or Freia).
+
+    - This script does not need to run on the GPU, it can run with TensorFlow on the CPU.
+    
+    - An output file `test_data.hdf` will be created.
 
 
 ### References
