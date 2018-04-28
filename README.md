@@ -20,7 +20,7 @@
 
 - Run `model_train.py` to train the model.
 
-    - Before running this script, set the number of GPUs, the batch size, and the learning rate.
+    - Before running this script, set the number of GPUs and the batch size accordingly.
 
     - Training will finish automatically once the validation loss no longer improves.
     
