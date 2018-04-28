@@ -10,7 +10,7 @@
 
 - Run `train_data.py` to get all the available tomographic reconstructions from bolometer data.
 
-    - This script will only run on a JET computing cluster (JAC or Freia).
+    - This script will only run on a JET computing cluster (e.g. Freia).
 
     - An output file `train_data.hdf` will be created.
 
@@ -40,9 +40,7 @@
 
     - Before running this script, set the desired pulse, start time, and time step.
 
-    - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster (JAC or Freia).
-
-    - This script does not need to run on the GPU, it can run with TensorFlow on the CPU.
+    - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster. Also, Tensorflow needs to be installed.
     
     - An output file `test_data.hdf` will be created.
 
