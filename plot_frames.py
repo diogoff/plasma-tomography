@@ -14,13 +14,9 @@ f = h5py.File(fname, 'r')
 pulse = f.keys()[0]
 
 g = f[pulse]
-bolo = g['bolo'][:]
-bolo_t = g['bolo_t'][:]
 tomo = g['tomo'][:]
 tomo_t = g['tomo_t'][:]
 
-print(pulse, 'bolo:', bolo.shape, bolo.dtype)
-print(pulse, 'bolo_t:', bolo_t.shape, bolo_t.dtype)
 print(pulse, 'tomo:', tomo.shape, tomo.dtype)
 print(pulse, 'tomo_t:', tomo_t.shape, tomo_t.dtype)
 
@@ -47,7 +43,7 @@ while k < tomo.shape[0]:
     for i in range(nrows):
         for j in range(ncols):
             if k < tomo.shape[0]:
-                im = ax[i,j].imshow(tomo[k], cmap=jet_cmap(),
+                im = ax[i,j].imshow(tomo[k], cmap=get_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
                 title = 't=%.*fs' % (digits, tomo_t[k])

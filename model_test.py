@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import h5py
 import numpy as np
-from get_data import *
+from data import *
 
 # ----------------------------------------------------------------------
 

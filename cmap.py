@@ -2,7 +2,7 @@
 import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
 
-def jet_cmap():
+def get_cmap():
     colors = [(0, 0, 255),
               (51, 0, 255),
               (76, 0, 255),
