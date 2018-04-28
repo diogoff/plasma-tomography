@@ -22,8 +22,6 @@
 
     - Before running this script, set the number of GPUs and the batch size accordingly.
 
-Before running this command, set the gpus parameter in multi_gpu_model() and set the batch_size to be used in parallel_model.fit().
-
         - In the call to `multi_gpu_model()`, the `gpus` parameter should be the number of GPUs available in your machine.
         
         - In `parallel_model.fit()`, `batch_size` should be an exact multiple of `gpus` and an approximate divisor of the number of training samples, bound by the available GPU memory.
