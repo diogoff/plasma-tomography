@@ -8,7 +8,7 @@
 
 ### Instructions
 
-- Run `train_data.py` to get all the available tomographic reconstructions from bolometer data.
+- Run `train_data.py` to get all the available tomographic reconstructions from bolometry.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
 
