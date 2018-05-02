@@ -54,7 +54,7 @@
 
     - If needed, adjust `vmax` to change the dynamic range of the plots.
 
-- Run `plot_movie.py` to create a movie of the reconstructions for the test pulse.
+- Run `create_movie.py` to produce a movie of the reconstructions for the test pulse.
 
     - If needed, adjust `vmax` to change the dynamic range.
 
