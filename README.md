@@ -38,7 +38,7 @@
 
     - This script does not need to run on the GPU, it can run with TensorFlow on the CPU.
     
-    - Check that the reported `val_loss` is the same as indicated by `plot_train.py`.
+    - Check that the reported `val_loss` is the same as indicated by `plot_loss.py`.
 
 - Run `model_test.py` to test the model on a given pulse.
 
