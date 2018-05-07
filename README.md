@@ -1,4 +1,4 @@
-# A Deconvolutional Neural Network for Plasma Tomography
+# A Deep Neural Network for Plasma Tomography
 
 
 ### Requirements
