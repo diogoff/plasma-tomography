@@ -7,10 +7,13 @@ from data import *
 # ----------------------------------------------------------------------
 
 pulse = 92213
-t0 = 40.
+t0 = 47.00
+t1 = 54.19
 dt = 0.01
 
-bolo, bolo_t = get_bolo(pulse, np.arange(t0, 100., dt))
+bolo_t = np.arange(t0, t1+dt/2., dt)
+
+bolo, bolo_t = get_bolo(pulse, bolo_t)
 
 # ----------------------------------------------------------------------
 

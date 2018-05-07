@@ -42,7 +42,7 @@
 
 - Run `model_test.py` to test the model on a given pulse.
 
-    - Before running this script, set the desired pulse, start time, and time step.
+    - Before running this script, set the desired pulse, start time (`t0`), end time (`t1`), and time step (`dt`).
 
     - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster.
     
