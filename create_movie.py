@@ -78,4 +78,4 @@ animation = ani.FuncAnimation(fig, animate, frames=range(tomo.shape[0]))
 
 fname = '%s_%.*f_%.*f.mp4' % (pulse, digits, tomo_t[0], digits, tomo_t[-1])
 print('Writing:', fname)
-animation.save(fname, fps=30, extra_args=['-vcodec', 'libx264'])
+animation.save(fname, fps=15, extra_args=['-vcodec', 'libx264'])
