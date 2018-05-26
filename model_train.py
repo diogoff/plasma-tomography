@@ -25,7 +25,6 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 # ----------------------------------------------------------------------
 
 from model import *
-from keras.utils import *
 from keras.optimizers import *
 
 model = create_model()
