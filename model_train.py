@@ -24,28 +24,15 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 # ----------------------------------------------------------------------
 
-import tensorflow as tf
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-session = tf.Session(config=config)
-
-from keras.backend.tensorflow_backend import set_session
-set_session(session)
-
-# ----------------------------------------------------------------------
-
 from model import *
 from keras.utils import *
 from keras.optimizers import *
 
-with tf.device('/cpu:0'):
-    model = create_model()
-
-parallel_model = multi_gpu_model(model, gpus=8)
+model = create_model()
 
 opt = Adam(lr=1e-4)
 
-parallel_model.compile(loss='mae', optimizer=opt)
+model.compile(loss='mae', optimizer=opt)
 
 # ----------------------------------------------------------------------
 
@@ -78,24 +65,24 @@ class MyCallback(Callback):
         if (self.min_val_loss == None) or (val_loss < self.min_val_loss):
             self.min_val_loss = val_loss
             self.min_val_epoch = epoch
-            model.save_weights('model_weights.hdf', overwrite=True)
+            self.model.save_weights('model_weights.hdf', overwrite=True)
             log_print('%-10s %5d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
         else:
             log_print('%-10s %5d %10.6f %10.6f' % (t, epoch, loss, val_loss))
         if epoch >= 2*self.min_val_epoch:
             print('Stop training.')
-            parallel_model.stop_training = True
+            self.model.stop_training = True
 
 # ----------------------------------------------------------------------
 
 mc = MyCallback()
 
 try:
-    parallel_model.fit(X_train, Y_train,
-                       batch_size=11200,
-                       epochs=100000,
-                       verbose=0,
-                       callbacks=[mc],
-                       validation_data=(X_valid, Y_valid))
+    model.fit(X_train, Y_train,
+              batch_size=436,
+              epochs=20000,
+              verbose=0,
+              callbacks=[mc],
+              validation_data=(X_valid, Y_valid))
 except KeyboardInterrupt:
     print('Training interrupted.')
