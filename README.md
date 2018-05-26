@@ -1,10 +1,10 @@
 # A Deconvolutional Neural Network for Plasma Tomography
 
+This repository contains a neural network that produces tomographic reconstructions similar to those available at JET.
 
 ### Requirements
 
 - Keras, TensorFlow
-
 
 ### Instructions
 
