@@ -31,7 +31,7 @@ model = create_model()
 
 opt = Adam(lr=1e-4)
 
-model.compile(loss='mae', optimizer=opt)
+model.compile(optimizer=opt, loss='mae')
 
 # ----------------------------------------------------------------------
 
@@ -40,21 +40,23 @@ from keras.callbacks import *
 f = open('train.log', 'w')
 f.close()
 
-def log_print(s):
-    print(s)
-    f = open('train.log', 'a')
-    f.write(s+'\n')
-    f.flush()
-    f.close()
-
 class MyCallback(Callback):
 
     def __init__(self):
         self.min_val_loss = None
         self.min_val_epoch = None
+        self.f = open('train.log', 'w')
+        self.f.close()
+
+    def log_print(self, s):
+        print(s)
+        self.f = open('train.log', 'a')
+        self.f.write(s+'\n')
+        self.f.flush()
+        self.f.close()
 
     def on_train_begin(self, logs=None):
-        log_print('%-10s %5s %10s %10s' % ('time', 'epoch', 'loss', 'val_loss'))
+        self.log_print('%-10s %5s %10s %10s' % ('time', 'epoch', 'loss', 'val_loss'))
 
     def on_epoch_end(self, epoch, logs=None):
         epoch += 1
@@ -65,9 +67,9 @@ class MyCallback(Callback):
             self.min_val_loss = val_loss
             self.min_val_epoch = epoch
             self.model.save_weights('model_weights.hdf', overwrite=True)
-            log_print('%-10s %5d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
+            self.log_print('%-10s %5d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
         else:
-            log_print('%-10s %5d %10.6f %10.6f' % (t, epoch, loss, val_loss))
+            self.log_print('%-10s %5d %10.6f %10.6f' % (t, epoch, loss, val_loss))
         if epoch >= 2*self.min_val_epoch:
             print('Stop training.')
             self.model.stop_training = True
