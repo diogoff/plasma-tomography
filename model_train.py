@@ -78,10 +78,15 @@ class MyCallback(Callback):
 
 mc = MyCallback()
 
+batch_size = 794
+max_epochs = 100000
+
+print('batch_size:', batch_size)
+
 try:
     model.fit(X_train, Y_train,
-              batch_size=397,
-              epochs=50000,
+              batch_size=batch_size,
+              epochs=max_epochs,
               verbose=0,
               callbacks=[mc],
               validation_data=(X_valid, Y_valid))
