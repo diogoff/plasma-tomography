@@ -37,13 +37,13 @@ print('Y_all:', Y_all.shape)
 
 # ----------------------------------------------------------------------
 
-r = np.arange(X_all.shape[0])
+i = int(round(float(X_all.shape[0]) * 0.9))
 
-X_train = X_all[(r % 10) != 0]
-Y_train = Y_all[(r % 10) != 0]
+X_train = X_all[:i]
+Y_train = Y_all[:i]
 
-X_valid = X_all[(r % 10) == 0]
-Y_valid = Y_all[(r % 10) == 0]
+X_valid = X_all[i:]
+Y_valid = Y_all[i:]
 
 print('X_train:', X_train.shape, X_train.dtype)
 print('Y_train:', Y_train.shape, Y_train.dtype)
@@ -62,3 +62,13 @@ save(Y_train, 'Y_train.npy')
 
 save(X_valid, 'X_valid.npy')
 save(Y_valid, 'Y_valid.npy')
+
+# ----------------------------------------------------------------------
+
+n = X_train.shape[0]
+
+print('%10s %10s' % ('batch_size', 'batches'))
+
+for i in range(1, n+1):
+    if n % i == 0:
+        print('%10d %10d' % (i, n/i))
