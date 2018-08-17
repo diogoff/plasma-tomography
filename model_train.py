@@ -80,8 +80,8 @@ mc = MyCallback()
 
 try:
     model.fit(X_train, Y_train,
-              batch_size=436,
-              epochs=20000,
+              batch_size=921,
+              epochs=100000,
               verbose=0,
               callbacks=[mc],
               validation_data=(X_valid, Y_valid))
