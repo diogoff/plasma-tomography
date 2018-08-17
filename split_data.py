@@ -37,13 +37,16 @@ print('Y_all:', Y_all.shape)
 
 # ----------------------------------------------------------------------
 
-i = int(round(float(X_all.shape[0]) * 0.9))
+r = np.arange(X_all.shape[0])
 
-X_train = X_all[:i]
-Y_train = Y_all[:i]
+i_train = ((r % 10) != 0)
+i_valid = ((r % 10) == 0)
 
-X_valid = X_all[i:]
-Y_valid = Y_all[i:]
+X_train = X_all[i_train]
+Y_train = Y_all[i_train]
+
+X_valid = X_all[i_valid]
+Y_valid = Y_all[i_valid]
 
 print('X_train:', X_train.shape, X_train.dtype)
 print('Y_train:', Y_train.shape, Y_train.dtype)

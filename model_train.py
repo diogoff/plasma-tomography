@@ -78,7 +78,7 @@ class MyCallback(Callback):
 
 mc = MyCallback()
 
-batch_size = 794
+batch_size = 921
 max_epochs = 100000
 
 print('batch_size:', batch_size)
