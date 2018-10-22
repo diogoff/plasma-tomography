@@ -46,7 +46,7 @@ while k < tomo.shape[0]:
                 im = ax[i,j].imshow(tomo[k], cmap=get_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
-                title = 't=%.*fs' % (digits, tomo_t[k]-40.)
+                title = 't=%.*fs' % (digits, tomo_t[k])
                 ax[i,j].set_title(title, fontsize='small')
                 ax[i,j].set_axis_off()
                 k1 = k
