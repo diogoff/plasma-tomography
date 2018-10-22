@@ -24,7 +24,7 @@ f.close()
 
 # ----------------------------------------------------------------------
 
-vmax = 1.5
+vmax = 1.
 print('vmax:', vmax, 'MW/m3')
 
 step = np.mean(tomo_t[1:]-tomo_t[:-1])
@@ -46,7 +46,7 @@ while k < tomo.shape[0]:
                 im = ax[i,j].imshow(tomo[k], cmap=get_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
-                title = 't=%.*fs' % (digits, tomo_t[k])
+                title = 't=%.*fs' % (digits, tomo_t[k]-40.)
                 ax[i,j].set_title(title, fontsize='small')
                 ax[i,j].set_axis_off()
                 k1 = k
@@ -55,7 +55,7 @@ while k < tomo.shape[0]:
                 ax[i,j].set_axis_off()
     fig.set_size_inches(18, 8)
     plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.025, wspace=0.02, hspace=0.12)
-    fname = '%s_%.*f_%.*f.png' % (pulse, digits, tomo_t[k0], digits, tomo_t[k1])
+    fname = '%s_%.*f_%.*f_%.*f.png' % (pulse, digits, tomo_t[k0], digits, tomo_t[k1], digits, step)
     print('Writing:', fname, '(%d frames)' % (k-k0), '(total: %d)' % k)
     plt.savefig(fname)
     plt.cla()

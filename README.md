@@ -10,9 +10,11 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-- Run `train_data.py` to get all the available tomographic reconstructions from bolometer data.
+- Run `train_data.py` to get the all the available tomographic reconstructions for training.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
+    
+    - `reliable_only` specifies whether the training set should include reliable reconstructions only.
 
     - An output file `train_data.hdf` will be created.
 
