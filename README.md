@@ -20,7 +20,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-- Run `train_data.py` to get all the available tomographic reconstructions for training.
+- Run `get_data.py` to get all the available tomographic reconstructions for training.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
