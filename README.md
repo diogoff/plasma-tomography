@@ -6,7 +6,17 @@ This repository contains a neural network that produces tomographic reconstructi
 
 - Keras 2.1.2, TensorFlow 1.4.1
 
-- In `~/.keras/keras.json`, set `image_data_format` to `channels_last` and `backend` to `tensorflow`.
+- Configure `~/.keras/keras.json` as follows:
+
+```
+{
+    "image_data_format": "channels_last",
+    "epsilon": 1e-07,
+    "floatx": "float32",
+    "backend": "tensorflow"
+}
+
+```
 
 ### Instructions
 
