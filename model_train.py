@@ -37,9 +37,6 @@ model.compile(optimizer=opt, loss='mae')
 
 from keras.callbacks import *
 
-f = open('train.log', 'w')
-f.close()
-
 class MyCallback(Callback):
 
     def __init__(self):
