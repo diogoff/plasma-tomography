@@ -4,7 +4,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Requirements
 
-- Keras, TensorFlow
+- Keras 2.1.2, TensorFlow 1.4.1
 
 - In `~/.keras/keras.json`, set `image_data_format` to `channels_last` and `backend` to `tensorflow`.
 
