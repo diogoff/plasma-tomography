@@ -20,7 +20,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `get_data.py` to get all the available tomographic reconstructions for training.
+1. Run `python get_data.py` to get all the available tomographic reconstructions for training.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
@@ -28,11 +28,17 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - An output file `train_data.hdf` will be created.
 
-2. Run `split_data.py` to split the train data into training set and validation set.
+2. Run `python split_data.py` to split the train data into training set and validation set.
 
     - This will create the two datasets (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
 
-3. Run `model_train.py` to train the model.
+3. Run `CUDA_VISIBLE_DEVICES=0 TF_CPP_MIN_LOG_LEVEL=1 python -W ignore model_train.py` to train the model.
+
+    - Change `CUDA_VISIBLE_DEVICES=0` to the device number you would like to use.
+    
+    - `TF_CPP_MIN_LOG_LEVEL=1` reduces the verbosity level of TensorFlow.
+    
+    - `-W ignore` supresses some Python warnings.
 
     - Training will finish automatically once the validation loss no longer improves.
     
