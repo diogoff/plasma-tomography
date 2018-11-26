@@ -75,7 +75,7 @@ class MyCallback(Callback):
 
 mc = MyCallback()
 
-batch_size = 227
+batch_size = int(np.ceil(float(X_train.shape[0])/10.))
 max_epochs = 100000
 
 print('batch_size:', batch_size)
