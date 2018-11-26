@@ -75,10 +75,11 @@ class MyCallback(Callback):
 
 mc = MyCallback()
 
-batch_size = int(np.ceil(float(X_train.shape[0])/10.))
-max_epochs = 100000
+batch_ratio = float(X_train.shape[0]) / 10.
+batch_size = int(np.ceil(batch_ratio))
+max_epochs = 10000
 
-print('batch_size:', batch_size)
+print('batch_size:', batch_size, '(%.2f)' % batch_ratio)
 
 try:
     model.fit(X_train, Y_train,
