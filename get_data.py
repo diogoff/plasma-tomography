@@ -8,6 +8,7 @@ from data import *
 reliable_only = True
 
 if reliable_only:
+
     fname = 'tomography_completed.reliable.ods'
     print('Reading:', fname)
     ods_data = pyexcel_ods.get_data(fname)
@@ -16,7 +17,9 @@ if reliable_only:
         pulses += [row[0] for row in ods_data[page][1:]]
     pulses = sorted(set(pulses))
     print('pulses:', pulses)
+
 else:
+
     pulse0 = 80128
     pulse1 = 92504
     pulses = range(pulse0, pulse1+1)
