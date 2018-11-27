@@ -79,4 +79,4 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Reference
 
-- [Full-Pulse Tomographic Reconstruction with Deep Neural Networks](https://arxiv.org/pdf/1802.02242.pdf) - D. R. Ferreira, P. J. Carvalho, H. Fernandes (2018)
+- D.R. Ferreira, P.J. Carvalho, H. Fernandes, [Full-Pulse Tomographic Reconstruction with Deep Neural Networks](https://arxiv.org/pdf/1802.02242.pdf), Fusion Science and Technology, vol. 74, no. 1-2, pp. 47-56, 2018 [BibTeX](https://www.tandfonline.com/action/downloadCitation?doi=10.1080/15361055.2017.1390386&format=bibtex)
