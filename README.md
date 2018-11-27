@@ -48,7 +48,9 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `python model_valid.py` to test the model on the validation data.
+5. After training, run `TF_CPP_MIN_LOG_LEVEL=1 python model_valid.py` to test the model on the validation data.
+
+    - This step does not need to be run on a GPU, it can be run with TensorFlow on the CPU.
 
     - Check that the reported `val_loss` is the same as indicated by `plot_loss.py`.
 
