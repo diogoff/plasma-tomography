@@ -49,7 +49,7 @@ im = plt.imshow(tomo[0], cmap=get_cmap(),
                 animated=True)
 
 ticks = np.linspace(0., vmax, num=7)
-labels = [str(t) for t in ticks]
+labels = ['%.2f' % t for t in ticks]
 labels[-1] = r'$\geq$' + labels[-1]
 cb = plt.colorbar(im, fraction=0.26, ticks=ticks)
 cb.ax.set_yticklabels(labels, fontsize=fontsize)
