@@ -70,7 +70,7 @@ This repository contains a neural network that produces tomographic reconstructi
     
     - If needed, adjust `vmax` to change the dynamic range of the plots.
 
-8. Run `python create_movie.py` to produce a movie of the reconstructions for the test pulse.
+8. Run `python plot_movie.py` to produce a movie of the reconstructions for the test pulse.
 
     - This will be built from the test data in `test_data.hdf`.
 
