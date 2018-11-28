@@ -74,8 +74,11 @@ print('tomo_t:', tomo_t.shape, tomo_t.dtype)
 
 fname = 'test_data.hdf'
 print('Writing:', fname)
-f = h5py.File(fname, 'w')
+f = h5py.File(fname, 'a')
 
+if str(pulse) in f:
+    del f[str(pulse)]
+    
 g = f.create_group(str(pulse))
 g.create_dataset('bolo', data=bolo)
 g.create_dataset('bolo_t', data=bolo_t)

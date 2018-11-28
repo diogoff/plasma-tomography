@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import os
+import sys
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,13 +9,35 @@ from cmap import *
 
 # ----------------------------------------------------------------------
 
+if len(sys.argv) < 2:
+    print('Usage: %s pulse vmax' % sys.argv[0])
+    print('[vmax (in MW/m3) defines the dynamic range of the plots]')
+    print('Example: %s 92213 1.0' % sys.argv[0])
+    exit()
+    
+# ----------------------------------------------------------------------
+
+try:
+    pulse = int(sys.argv[1])
+    print('pulse:', pulse)
+except:
+    print('Unable to parse: pulse')
+    exit()
+
+try:
+    vmax = float(sys.argv[2])
+    print('vmax:', vmax, 'MW/m3')
+except:
+    print('Unable to parse: vmax')
+    exit()
+
+# ----------------------------------------------------------------------
+
 fname = 'test_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-pulse = f.keys()[0]
-
-g = f[pulse]
+g = f[str(pulse)]
 tomo = g['tomo'][:]
 tomo_t = g['tomo_t'][:]
 
@@ -24,13 +48,16 @@ f.close()
 
 # ----------------------------------------------------------------------
 
-vmax = 1.
-print('vmax:', vmax, 'MW/m3')
-
 step = np.mean(tomo_t[1:]-tomo_t[:-1])
 digits = 0
 while round(step*10.**digits) == 0.:
     digits += 1
+
+# ----------------------------------------------------------------------
+
+path = 'frames'
+if not os.path.exists(path):
+    os.makedirs(path)
 
 # ----------------------------------------------------------------------
 
@@ -55,7 +82,7 @@ while k < tomo.shape[0]:
                 ax[i,j].set_axis_off()
     fig.set_size_inches(18, 8)
     plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.025, wspace=0.02, hspace=0.12)
-    fname = '%s_%.*f_%.*f_%.*f.png' % (pulse, digits, tomo_t[k0], digits, tomo_t[k1], digits, step)
+    fname = '%s/%s_%.*f_%.*f_%.*f.png' % (path, pulse, digits, tomo_t[k0], digits, tomo_t[k1], digits, step)
     print('Writing:', fname, '(%d frames)' % (k-k0), '(total: %d)' % k)
     plt.savefig(fname)
     plt.cla()

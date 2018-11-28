@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import os
+import sys
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,13 +10,35 @@ from cmap import *
 
 # ----------------------------------------------------------------------
 
+if len(sys.argv) < 2:
+    print('Usage: %s pulse vmax' % sys.argv[0])
+    print('[vmax (in MW/m3) defines the dynamic range of the plots]')
+    print('Example: %s 92213 1.0' % sys.argv[0])
+    exit()
+    
+# ----------------------------------------------------------------------
+
+try:
+    pulse = int(sys.argv[1])
+    print('pulse:', pulse)
+except:
+    print('Unable to parse: pulse')
+    exit()
+
+try:
+    vmax = float(sys.argv[2])
+    print('vmax:', vmax, 'MW/m3')
+except:
+    print('Unable to parse: vmax')
+    exit()
+
+# ----------------------------------------------------------------------
+
 fname = 'test_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-pulse = f.keys()[0]
-
-g = f[pulse]
+g = f[str(pulse)]
 tomo = g['tomo'][:]
 tomo_t = g['tomo_t'][:]
 
@@ -25,13 +49,16 @@ f.close()
 
 # ----------------------------------------------------------------------
 
-vmax = 1.
-print('vmax:', vmax, 'MW/m3')
-
 step = np.mean(tomo_t[1:]-tomo_t[:-1])
 digits = 0
 while round(step*10.**digits) == 0.:
     digits += 1
+
+# ----------------------------------------------------------------------
+
+path = 'movies'
+if not os.path.exists(path):
+    os.makedirs(path)
 
 # ----------------------------------------------------------------------
 
@@ -53,7 +80,7 @@ labels = ['%.2f' % t for t in ticks]
 labels[-1] = r'$\geq$' + labels[-1]
 cb = plt.colorbar(im, fraction=0.26, ticks=ticks)
 cb.ax.set_yticklabels(labels, fontsize=fontsize)
-cb.ax.set_ylabel(r'MW m$^{-3}$', fontsize=fontsize)
+cb.ax.set_ylabel('MW/m3', fontsize=fontsize)
 
 fig = plt.gcf()
 ax = plt.gca()
@@ -76,6 +103,6 @@ def animate(k):
 
 animation = ani.FuncAnimation(fig, animate, frames=range(tomo.shape[0]))
 
-fname = '%s_%.*f_%.*f.mp4' % (pulse, digits, tomo_t[0], digits, tomo_t[-1])
+fname = '%s/%s_%.*f_%.*f.mp4' % (path, pulse, digits, tomo_t[0], digits, tomo_t[-1])
 print('Writing:', fname)
 animation.save(fname, fps=15, extra_args=['-vcodec', 'libx264'])
