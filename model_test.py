@@ -1,15 +1,48 @@
 from __future__ import print_function
 
+import sys
 import h5py
 import numpy as np
 from data import *
 
 # ----------------------------------------------------------------------
 
-pulse = 92213
-t0 = 46.40
-t1 = 54.79
-dt = 0.01
+if len(sys.argv) < 5:
+    print('Usage: %s pulse t0 t1 dt' % sys.argv[0])
+    print('Example: %s 92213 46.40 54.79 0.01' % sys.argv[0])
+    exit()
+    
+# ----------------------------------------------------------------------
+
+try:
+    pulse = int(sys.argv[1])
+    print('pulse:', pulse)
+except:
+    print('Unable to parse: pulse')
+    exit()
+
+try:
+    t0 = float(sys.argv[2])
+    print('t0:', t0)
+except:
+    print('Unable to parse: t0')
+    exit()
+
+try:
+    t1 = float(sys.argv[3])
+    print('t1:', t1)
+except:
+    print('Unable to parse: t1')
+    exit()
+
+try:
+    dt = float(sys.argv[4])
+    print('dt:', dt)
+except:
+    print('Unable to parse: df')
+    exit()
+
+# ----------------------------------------------------------------------
 
 bolo_t = np.arange(t0, t1+dt/2., dt)
 
