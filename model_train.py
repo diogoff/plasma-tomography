@@ -75,7 +75,7 @@ class MyCallback(Callback):
 
 mc = MyCallback()
 
-batch_ratio = float(X_train.shape[0]) / 10.
+batch_ratio = float(X_train.shape[0]) / 9.
 batch_size = int(np.ceil(batch_ratio))
 max_epochs = 10000
 

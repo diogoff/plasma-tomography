@@ -31,6 +31,8 @@ This repository contains a neural network that produces tomographic reconstructi
 2. Run `python split_data.py` to split the train data into training set and validation set.
 
     - This will create the two datasets (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
+    
+    - If needed, adjust the `batch_ratio` in `model_train.py` according to the number of samples in `X_train`.
 
 3. Run `CUDA_VISIBLE_DEVICES=0 python model_train.py` to train the model.
 
