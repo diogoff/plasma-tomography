@@ -10,10 +10,10 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ```
 {
-    "image_data_format": "channels_last",
     "epsilon": 1e-07,
     "floatx": "float32",
     "backend": "tensorflow"
+    "image_data_format": "channels_last",
 }
 
 ```
@@ -32,8 +32,6 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - This will create the two datasets (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
     
-    - If needed, adjust the `batch_ratio` in `model_train.py` according to the number of samples in `X_train`.
-
 3. Run `CUDA_VISIBLE_DEVICES=0 python model_train.py` to train the model.
 
     - Change `CUDA_VISIBLE_DEVICES=0` to the device number you would like to use.
@@ -46,7 +44,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `TF_CPP_MIN_LOG_LEVEL=1 python model_valid.py` to test the model on the validation data.
+5. After training, run `python model_valid.py` to test the model on the validation data.
 
     - This step does not need to be run on a GPU, it can be run with TensorFlow on the CPU.
 
