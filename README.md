@@ -50,9 +50,9 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - Check that the reported `val_loss` is the same as indicated by `train_plot.py`.
 
-6. Run `python test_model.py 92213 46.40 54.79 0.01` to test the model on a specific pulse.
+6. Run `python test_data.py 92213 46.40 54.79 0.01` to test the model on a specific pulse.
 
-    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), and time step (`dt`).
+    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`).
 
     - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster.
     
@@ -75,7 +75,6 @@ This repository contains a neural network that produces tomographic reconstructi
     - This will be built from the test data in `test_data.hdf`.
 
     - If needed, adjust `vmax` to change the dynamic range.
-
 
 ### Reference
 

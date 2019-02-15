@@ -17,19 +17,11 @@ if len(sys.argv) < 2:
     
 # ----------------------------------------------------------------------
 
-try:
-    pulse = int(sys.argv[1])
-    print('pulse:', pulse)
-except:
-    print('Unable to parse: pulse')
-    exit()
+pulse = int(sys.argv[1])
+print('pulse:', pulse)
 
-try:
-    vmax = float(sys.argv[2])
-    print('vmax:', vmax, 'MW/m3')
-except:
-    print('Unable to parse: vmax')
-    exit()
+vmax = float(sys.argv[2])
+print('vmax:', vmax, 'MW/m3')
 
 # ----------------------------------------------------------------------
 
@@ -37,7 +29,9 @@ fname = 'test_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-g = f[str(pulse)]
+k = str(pulse)
+
+g = f[k]
 tomo = g['tomo'][:]
 tomo_t = g['tomo_t'][:]
 
@@ -49,6 +43,7 @@ f.close()
 # ----------------------------------------------------------------------
 
 step = np.mean(tomo_t[1:]-tomo_t[:-1])
+
 digits = 0
 while round(step*10.**digits) == 0.:
     digits += 1
