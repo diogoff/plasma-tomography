@@ -20,18 +20,18 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `python get_data.py` to get all the available tomographic reconstructions for training.
+1. Run `python train_data.py` to get all the available tomographic reconstructions for training.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
-    - `reliable_only` specifies whether the training set should include reliable reconstructions only.
-
+    - It will grab a list of pulses with reliable reconstructions from `tomography_completed.reliable.ods`.
+    
     - An output file `train_data.hdf` will be created.
 
-2. Run `python split_data.py` to split the train data into training set and validation set.
+2. Run `python train_split.py` to split the train data into training set and validation set.
 
-    - This will create the two datasets (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
-    
+    - This will create two datasets: (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
+
 3. Run `CUDA_VISIBLE_DEVICES=0 python model_train.py` to train the model.
 
     - Change `CUDA_VISIBLE_DEVICES=0` to the device number you would like to use.
