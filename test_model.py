@@ -3,7 +3,7 @@ from __future__ import print_function
 import sys
 import h5py
 import numpy as np
-from data import *
+from ppf_data import *
 
 # ----------------------------------------------------------------------
 
@@ -14,33 +14,43 @@ if len(sys.argv) < 5:
     
 # ----------------------------------------------------------------------
 
-try:
-    pulse = int(sys.argv[1])
-    print('pulse:', pulse)
-except:
-    print('Unable to parse: pulse')
-    exit()
+pulse = int(sys.argv[1])
+print('pulse:', pulse)
 
-try:
-    t0 = float(sys.argv[2])
-    print('t0:', t0)
-except:
-    print('Unable to parse: t0')
-    exit()
+t0 = float(sys.argv[2])
+print('t0:', t0)
 
-try:
-    t1 = float(sys.argv[3])
-    print('t1:', t1)
-except:
-    print('Unable to parse: t1')
-    exit()
+t1 = float(sys.argv[3])
+print('t1:', t1)
 
-try:
-    dt = float(sys.argv[4])
-    print('dt:', dt)
-except:
-    print('Unable to parse: df')
-    exit()
+dt = float(sys.argv[4])
+print('dt:', dt)
+
+# ----------------------------------------------------------------------
+
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+
+# ----------------------------------------------------------------------
+
+import tensorflow as tf
+
+config = tf.ConfigProto()
+
+config.gpu_options.allow_growth = True
+
+from keras.backend.tensorflow_backend import set_session
+
+set_session(tf.Session(config=config))
+
+# ----------------------------------------------------------------------
+
+from keras.models import load_model
+
+fname = 'model.hdf'
+print('Reading:', fname)
+model = load_model(fname)    
 
 # ----------------------------------------------------------------------
 
@@ -50,19 +60,17 @@ bolo, bolo_t = get_bolo(pulse, bolo_t)
 
 # ----------------------------------------------------------------------
 
-from model import *
+X_test = np.clip(bolo, 0., None)/1e6
 
-model = create_model()
-
-fname = 'model_weights.hdf'
-print('Reading:', fname)
-model.load_weights(fname)
+print('X_test:', X_test.shape, X_test.dtype)
 
 # ----------------------------------------------------------------------
 
-X_test = np.clip(bolo, 0., None)/1e6
-
 Y_pred = model.predict(X_test, batch_size=500, verbose=1)
+
+print('Y_pred:', Y_pred.shape, Y_pred.dtype)
+
+# ----------------------------------------------------------------------
 
 tomo = np.squeeze(Y_pred)
 tomo_t = bolo_t
@@ -76,10 +84,13 @@ fname = 'test_data.hdf'
 print('Writing:', fname)
 f = h5py.File(fname, 'a')
 
-if str(pulse) in f:
-    del f[str(pulse)]
+k = str(pulse)
+
+if k in f:
+    print('Warning: deleting', k)
+    del f[k]
     
-g = f.create_group(str(pulse))
+g = f.create_group(k)
 g.create_dataset('bolo', data=bolo)
 g.create_dataset('bolo_t', data=bolo_t)
 g.create_dataset('tomo', data=tomo)

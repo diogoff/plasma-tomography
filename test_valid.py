@@ -18,17 +18,33 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 # ----------------------------------------------------------------------
 
-from model import *
+import os
 
-model = create_model()
-
-fname = 'model_weights.hdf'
-print('Reading:', fname)
-model.load_weights(fname)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 # ----------------------------------------------------------------------
 
-Y_pred = model.predict(X_valid, batch_size=500, verbose=1)
+import tensorflow as tf
+
+config = tf.ConfigProto()
+
+config.gpu_options.allow_growth = True
+
+from keras.backend.tensorflow_backend import set_session
+
+set_session(tf.Session(config=config))
+
+# ----------------------------------------------------------------------
+
+from keras.models import load_model
+
+fname = 'model.hdf'
+print('Reading:', fname)
+model = load_model(fname)    
+
+# ----------------------------------------------------------------------
+
+Y_pred = model.predict(X_valid, batch_size=X_valid.shape[0], verbose=1)
 
 print('Y_pred:', Y_pred.shape)
 
