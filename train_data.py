@@ -7,19 +7,22 @@ from ppf_data import *
 
 # ----------------------------------------------------------------------
 
-fname = 'tomography_completed.reliable.ods'
-print('Reading:', fname)
-ods_data = pyexcel_ods.get_data(fname)
+reliable_only = False
 
-# ----------------------------------------------------------------------
-
-pulses = []
-
-for page in ods_data:
-    pulses += [row[0] for row in ods_data[page][1:]]
-
-pulses = sorted(set(pulses))
-print('pulses:', pulses)
+if reliable_only:
+    fname = 'tomography_completed.reliable.ods'
+    print('Reading:', fname)
+    ods_data = pyexcel_ods.get_data(fname)
+    pulses = []
+    for page in ods_data:
+        pulses += [row[0] for row in ods_data[page][1:]]
+    pulses = sorted(set(pulses))
+    print('pulses:', len(pulses))
+else:
+    pulse0 = 80128
+    pulse1 = 92504
+    pulses = [pulse for pulse in range(pulse0, pulse1+1)]
+    print('pulses:', len(pulses))
 
 # ----------------------------------------------------------------------
 
