@@ -37,7 +37,7 @@ print('Y_all:', Y_all.shape)
 
 # ----------------------------------------------------------------------
 
-r = np.arange(X_all.shape[0]) + 1
+r = np.arange(X_all.shape[0])
 
 i_train = ((r % 10) != 0)
 i_valid = ((r % 10) == 0)
