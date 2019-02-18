@@ -119,7 +119,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = X_valid.shape[0]
+batch_size = 500
 print('batch_size:', batch_size)
 
 epochs = 10000
