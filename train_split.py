@@ -18,17 +18,14 @@ r = np.arange(len(pulses))
 
 N = 10
 
-i_train = ((r % N) >= 2)
-i_valid = ((r % N) == 1)
-i_test = ((r % N) == 0)
+i_train = ((r % N) <= N-2)
+i_valid = ((r % N) == N-1)
 
-train_pulses = set(pulses[i_train])
-valid_pulses = set(pulses[i_valid])
-test_pulses = set(pulses[i_test])
+train_pulses = list(pulses[i_train])
+valid_pulses = list(pulses[i_valid])
 
 print('train_pulses:', len(train_pulses))
 print('valid_pulses:', len(valid_pulses))
-print('test_pulses:', len(test_pulses))
 
 # ----------------------------------------------------------------------
 
@@ -38,12 +35,9 @@ Y_train = []
 X_valid = []
 Y_valid = []
 
-X_test = []
-Y_test = []
-
 # ----------------------------------------------------------------------
 
-for pulse in f:
+for pulse in train_pulses + valid_pulses:
     g = f[pulse]
     bolo = g['bolo'][:]
     tomo = g['tomo'][:]
@@ -56,9 +50,6 @@ for pulse in f:
         if pulse in valid_pulses:
             X_valid.append(x)
             Y_valid.append(y)
-        if pulse in test_pulses:
-            X_test.append(x)
-            Y_test.append(y)
 
 f.close()
 
@@ -70,9 +61,6 @@ Y_train = np.array(Y_train)
 X_valid = np.array(X_valid)
 Y_valid = np.array(Y_valid)
 
-X_test = np.array(X_test)
-Y_test = np.array(Y_test)
-
 # ----------------------------------------------------------------------
 
 print('X_train:', X_train.shape, X_train.dtype)
@@ -80,9 +68,6 @@ print('Y_train:', Y_train.shape, X_train.dtype)
 
 print('X_valid:', X_valid.shape, X_valid.dtype)
 print('Y_valid:', Y_valid.shape, X_valid.dtype)
-
-print('X_test:', X_test.shape, X_test.dtype)
-print('Y_test:', Y_test.shape, X_test.dtype)
 
 # ----------------------------------------------------------------------
 
@@ -95,6 +80,3 @@ save('Y_train.npy', Y_train)
 
 save('X_valid.npy', X_valid)
 save('Y_valid.npy', Y_valid)
-
-save('X_test.npy', X_test)
-save('Y_test.npy', Y_test)
