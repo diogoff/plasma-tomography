@@ -18,7 +18,7 @@ r = np.arange(len(pulses))
 
 N = 10
 
-i_train = ((r % N) <= N-3)
+i_train = ((r % N) < N-2)
 i_valid = ((r % N) == N-2)
 i_test = ((r % N) == N-1)
 
