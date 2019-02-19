@@ -55,17 +55,19 @@ model.add(Activation('relu'))
 
 model.add(Reshape((25,15,20)))
 
-model.add(Conv2DTranspose(20, kernel_size=(5,5), strides=(2,2), padding='same'))
+model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
 model.add(Activation('relu'))
 
-model.add(Conv2DTranspose(20, kernel_size=(5,5), strides=(2,2), padding='same'))
+model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
 model.add(Activation('relu'))
 
-model.add(Conv2DTranspose(20, kernel_size=(5,5), strides=(2,2), padding='same'))
+model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
 model.add(Activation('relu'))
 
-model.add(Conv2DTranspose(1, kernel_size=(1,1), strides=(1,1)))
+model.add(Conv2D(1, kernel_size=(3,3), strides=(1,1), padding='same'))
 model.add(Activation('relu'))
+
+model.add(Lambda(lambda t: t[:,2:-2,2:-3,0]))
 
 model.summary()
 
@@ -119,7 +121,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = 307
+batch_size = 566
 print('batch_size:', batch_size)
 
 batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
