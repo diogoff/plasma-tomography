@@ -18,9 +18,9 @@ r = np.arange(len(pulses))
 
 N = 10
 
-i_train = ((r % N) <= N-3)
-i_valid = ((r % N) == N-2)
-i_test = ((r % N) == N-1)
+i_train = ((r % N) >= 2)
+i_valid = ((r % N) == 1)
+i_test = ((r % N) == 0)
 
 train_pulses = set(pulses[i_train])
 valid_pulses = set(pulses[i_valid])
