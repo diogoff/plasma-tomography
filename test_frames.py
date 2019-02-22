@@ -56,9 +56,14 @@ if not os.path.exists(path):
 
 # ----------------------------------------------------------------------
 
+w = 17
+h = 8
+
 nrows = 4
 ncols = 15
+
 k = 0
+
 while k < tomo.shape[0]:
     k0 = k
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols)
@@ -75,8 +80,8 @@ while k < tomo.shape[0]:
                 k += 1
             else:
                 ax[i,j].set_axis_off()
-    fig.set_size_inches(18, 8)
-    plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.025, wspace=0.02, hspace=0.12)
+    fig.set_size_inches(w, h)
+    plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.028, wspace=0.01, hspace=0.14)
     fname = '%s/%s_%.*f_%.*f_%.*f.png' % (path, pulse, digits, tomo_t[k0], digits, tomo_t[k1], digits, step)
     print('Writing:', fname, '(%d frames)' % (k-k0), '(total: %d)' % k)
     plt.savefig(fname)
