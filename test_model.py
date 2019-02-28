@@ -2,11 +2,10 @@ from __future__ import print_function
 
 import h5py
 import numpy as np
-from ppf_data import *
 
 # ----------------------------------------------------------------------
 
-fname = 'train_data.hdf'
+fname = 'test_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
@@ -46,9 +45,6 @@ for pulse in bolo:
     tomo[pulse] = np.squeeze(Y_pred)
     tomo_t[pulse] = bolo_t[pulse]
 
-    print('tomo:', tomo.shape, tomo.dtype)
-    print('tomo_t:', tomo_t.shape, tomo_t.dtype)
-
 # ----------------------------------------------------------------------
 
 fname = 'test_data.hdf'
@@ -57,7 +53,7 @@ f = h5py.File(fname, 'a')
 
 for pulse in bolo:
     g = f[pulse]
-    g.create_dataset('tomo', data=tomo)
-    g.create_dataset('tomo_t', data=tomo_t)
+    g.create_dataset('tomo', data=tomo[pulse])
+    g.create_dataset('tomo_t', data=tomo_t[pulse])
 
 f.close()
