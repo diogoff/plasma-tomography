@@ -17,7 +17,9 @@ def get_tomo(pulse):
             if ier != 0:
                 break
             t = np.float32(ihdata.strip().split()[-1][2:-1])
-            tomo.append(np.flipud(np.transpose(data)))
+            data = np.flipud(np.transpose(data))
+            data = np.clip(data, 0., None) / 1e6 # clip and scale
+            tomo.append(data)
             tomo_t.append(t)
     if len(tomo) > 0:
         tomo = np.array(tomo)
@@ -34,8 +36,12 @@ def get_bolo(pulse, bolo_t):
     ppfuid('jetppf', 'r')
     ihdata, iwdata, kb5h, x, kb5h_t, ier = ppfget(pulse, 'bolo', 'kb5h', reshape=1)
     ihdata, iwdata, kb5v, x, kb5v_t, ier = ppfget(pulse, 'bolo', 'kb5v', reshape=1)
-    assert np.all(kb5h_t == kb5v_t)
+    kb5h[:,19] = 0. # broken channel
+    kb5v[:,15] = 0. # broken channel
+    kb5v[:,22] = 0. # broken channel
     kb5 = np.hstack((kb5h, kb5v))
+    kb5 = np.clip(kb5, 0., None) / 1e6 # clip and scale
+    assert np.all(kb5h_t == kb5v_t)
     kb5_t = kb5h_t
     t0 = kb5_t[0]
     t1 = kb5_t[-1]-2.*dt

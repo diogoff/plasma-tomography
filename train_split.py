@@ -32,26 +32,26 @@ print('valid_pulses:', len(valid_pulses))
 X_train = []
 Y_train = []
 
-X_valid = []
-Y_valid = []
-
-# ----------------------------------------------------------------------
-
-for pulse in train_pulses + valid_pulses:
+for pulse in train_pulses:
     g = f[pulse]
     bolo = g['bolo'][:]
     tomo = g['tomo'][:]
     for i in range(bolo.shape[0]):
-        x = np.clip(bolo[i], 0., None)/1e6
-        y = np.clip(tomo[i], 0., None)/1e6
-        if pulse in train_pulses:
-            X_train.append(x)
-            Y_train.append(y)
-        if pulse in valid_pulses:
-            X_valid.append(x)
-            Y_valid.append(y)
+        X_train.append(bolo[i])
+        Y_train.append(tomo[i])
 
-f.close()
+# ----------------------------------------------------------------------
+
+X_valid = []
+Y_valid = []
+
+for pulse in valid_pulses:
+    g = f[pulse]
+    bolo = g['bolo'][:]
+    tomo = g['tomo'][:]
+    for i in range(bolo.shape[0]):
+        X_valid.append(bolo[i])
+        Y_valid.append(tomo[i])
 
 # ----------------------------------------------------------------------
 
@@ -80,3 +80,7 @@ save('Y_train.npy', Y_train)
 
 save('X_valid.npy', X_valid)
 save('Y_valid.npy', Y_valid)
+
+# ----------------------------------------------------------------------
+
+f.close()
