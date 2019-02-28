@@ -44,7 +44,7 @@ model = load_model(fname)
 
 # ----------------------------------------------------------------------
 
-Y_pred = model.predict(X_valid, batch_size=X_valid.shape[0], verbose=1)
+Y_pred = model.predict(X_valid, batch_size=500, verbose=1)
 
 print('Y_pred:', Y_pred.shape)
 
