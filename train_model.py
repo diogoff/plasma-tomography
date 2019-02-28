@@ -24,24 +24,6 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 # ----------------------------------------------------------------------
 
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-
-# ----------------------------------------------------------------------
-
-import tensorflow as tf
-
-config = tf.ConfigProto()
-
-config.gpu_options.allow_growth = True
-
-from keras.backend.tensorflow_backend import set_session
-
-set_session(tf.Session(config=config))
-
-# ----------------------------------------------------------------------
-
 from keras.models import *
 from keras.layers import *
 
@@ -121,7 +103,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = 529
+batch_size = 487
 print('batch_size:', batch_size)
 
 batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
