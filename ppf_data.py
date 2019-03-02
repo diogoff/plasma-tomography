@@ -31,7 +31,7 @@ def get_tomo(pulse):
         print(pulse, 'tomo_t:', tomo_t.shape, tomo_t.dtype)
     return tomo, tomo_t
 
-def get_bolo(pulse, bolo_t):
+def get_bolo(pulse, bolo_t=None):
     dt = 0.0025
     ppfuid('jetppf', 'r')
     ihdata, iwdata, kb5h, x, kb5h_t, ier = ppfget(pulse, 'bolo', 'kb5h', reshape=1)
@@ -45,12 +45,15 @@ def get_bolo(pulse, bolo_t):
     kb5_t = kb5h_t
     t0 = kb5_t[0]
     t1 = kb5_t[-1]-2.*dt
-    if bolo_t[0] < t0:
-        i = np.argmin(np.fabs(bolo_t - t0))
-        bolo_t = bolo_t[i:]
-    if bolo_t[-1] > t1:
-        i = np.argmin(np.fabs(bolo_t - t1))
-        bolo_t = bolo_t[:i+1]
+    if np.all(bolo_t == None):
+        bolo_t = np.arange(t0, t1, 2.*dt, dtype=np.float32)
+    else:
+        if bolo_t[0] < t0:
+            i = np.argmin(np.fabs(bolo_t - t0))
+            bolo_t = bolo_t[i:]
+        if bolo_t[-1] > t1:
+            i = np.argmin(np.fabs(bolo_t - t1))
+            bolo_t = bolo_t[:i+1]
     bolo = []
     for t in bolo_t:
         i0 = np.argmin(np.fabs(kb5_t - t))
