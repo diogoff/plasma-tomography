@@ -1,8 +1,9 @@
 from __future__ import print_function
 
-import time
+import tqdm
 import numpy as np
 np.random.seed(0)
+from skimage.measure import *
 
 # ----------------------------------------------------------------------
 
@@ -15,24 +16,6 @@ Y_valid = load('Y_valid.npy')
 
 print('X_valid:', X_valid.shape, X_valid.dtype)
 print('Y_valid:', Y_valid.shape, Y_valid.dtype)
-
-# ----------------------------------------------------------------------
-
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-
-# ----------------------------------------------------------------------
-
-import tensorflow as tf
-
-config = tf.ConfigProto()
-
-config.gpu_options.allow_growth = True
-
-from keras.backend.tensorflow_backend import set_session
-
-set_session(tf.Session(config=config))
 
 # ----------------------------------------------------------------------
 
@@ -53,3 +36,32 @@ print('Y_pred:', Y_pred.shape)
 val_loss = np.mean(np.abs(Y_valid-Y_pred))
 
 print('val_loss: %.6f' % val_loss)
+
+# ----------------------------------------------------------------------
+
+ssim = []
+psnr = []
+rmse = []
+
+for i in tqdm.tqdm(range(X_valid.shape[0])):
+    y0 = np.clip(Y_valid[i], 0., 1.)
+    y1 = np.clip(Y_pred[i], 0., 1.)
+    ssim.append(compare_ssim(y0, y1))
+    psnr.append(compare_psnr(y0, y1))
+    rmse.append(compare_nrmse(y0, y1))
+
+mean_ssim = np.mean(ssim)
+mean_psnr = np.mean(psnr)
+mean_rmse = np.mean(rmse)
+
+print('mean_ssim:', mean_ssim)
+print('mean_psnr:', mean_psnr)    
+print('mean_rmse:', mean_rmse)    
+
+std_ssim = np.std(ssim)
+std_psnr = np.std(psnr)
+std_rmse = np.std(rmse)
+
+print('std_ssim:', std_ssim)
+print('std_psnr:', std_psnr)    
+print('std_rmse:', std_rmse)    
