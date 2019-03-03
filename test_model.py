@@ -53,6 +53,9 @@ f = h5py.File(fname, 'a')
 
 for pulse in bolo:
     g = f[pulse]
+    if 'tomo' in g:
+        del g['tomo']
+        del g['tomo_t']
     g.create_dataset('tomo', data=tomo[pulse])
     g.create_dataset('tomo_t', data=tomo_t[pulse])
 
