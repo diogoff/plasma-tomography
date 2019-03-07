@@ -73,12 +73,6 @@ print('frames_t:', frames_t.shape, frames_t.dtype)
 
 # ----------------------------------------------------------------------
 
-digits = 0
-while round(dt*10.**digits) == 0.:
-    digits += 1
-
-# ----------------------------------------------------------------------
-
 path = 'frames'
 if not os.path.exists(path):
     os.makedirs(path)
@@ -102,7 +96,7 @@ while k < frames.shape[0]:
                 im = ax[i,j].imshow(frames[k], cmap=get_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
-                title = 't=%.*fs' % (digits, frames_t[k])
+                title = 't=%.4gs' % frames_t[k]
                 ax[i,j].set_title(title, fontsize='small')
                 ax[i,j].set_axis_off()
                 k1 = k
@@ -111,7 +105,7 @@ while k < frames.shape[0]:
                 ax[i,j].set_axis_off()
     fig.set_size_inches(w, h)
     plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.028, wspace=0.01, hspace=0.14)
-    fname = '%s/%s_%.*f_%.*f_%.*f.png' % (path, pulse, digits, frames_t[k0], digits, frames_t[k1], digits, dt)
+    fname = '%s/%s_%.4g_%.4g_%g.png' % (path, pulse, frames_t[k0], frames_t[k1], dt)
     print('Writing:', fname, '(%d frames)' % (k-k0), '(total: %d)' % k)
     plt.savefig(fname)
     plt.cla()
