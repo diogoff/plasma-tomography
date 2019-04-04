@@ -9,7 +9,7 @@ fname = 'train_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-pulses = np.array(f.keys())
+pulses = np.array(list(f.keys()))
 print('pulses:', len(pulses))
 
 # ----------------------------------------------------------------------
