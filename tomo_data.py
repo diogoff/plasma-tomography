@@ -26,7 +26,7 @@ else:
 
 # ----------------------------------------------------------------------
 
-fname = 'train_data.hdf'
+fname = 'tomo_data.hdf'
 print('Writing:', fname)
 f = h5py.File(fname, 'w')
 
