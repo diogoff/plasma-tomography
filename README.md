@@ -4,7 +4,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Requirements
 
-- Keras 2.1.2, TensorFlow 1.4.1
+- Keras 2.1.2, TensorFlow 1.4.1 (minimum)
 
 - Configure `~/.keras/keras.json` as follows:
 
