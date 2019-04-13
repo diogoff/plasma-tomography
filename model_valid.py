@@ -33,7 +33,7 @@ model = load_model(fname)
 
 for (X_pred, Y_true) in [(X_valid, Y_valid), (X_test, Y_test)]:
 
-    Y_pred = model.predict(X_pred, batch_size=X_pred.shape[0], verbose=1)
+    Y_pred = model.predict(X_pred, batch_size=500, verbose=1)
 
     print('Y_pred:', Y_pred.shape)
 

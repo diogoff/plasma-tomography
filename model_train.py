@@ -103,7 +103,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = X_valid.shape[0]
+batch_size = 797
 print('batch_size:', batch_size)
 
 batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
