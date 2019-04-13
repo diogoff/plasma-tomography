@@ -16,7 +16,7 @@ print('pulses:', pulses)
 
 # ----------------------------------------------------------------------
 
-fname = 'test_data.hdf'
+fname = 'bolo_data.hdf'
 print('Writing:', fname)
 f = h5py.File(fname, 'a')
 

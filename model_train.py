@@ -75,7 +75,7 @@ class MyCallback(Callback):
         print('Writing:', fname)
         self.log = open(fname, 'w')
         print('%-10s %10s %10s %10s' % ('time', 'epoch', 'loss', 'val_loss'))
-        self.log.write('epoch,loss,val_loss\n')
+        self.log.write('time,epoch,loss,val_loss\n')
         self.log.flush()
         
     def on_epoch_end(self, epoch, logs=None):
@@ -89,7 +89,7 @@ class MyCallback(Callback):
             print('%-10s %10d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
         else:
             print('%-10s %10d %10.6f %10.6f' % (t, epoch, loss, val_loss))
-        self.log.write('%d,%f,%f\n' % (epoch, loss, val_loss))
+        self.log.write('%s,%d,%f,%f\n' % (t, epoch, loss, val_loss))
         self.log.flush()
         if epoch > 2*self.min_val_epoch:
             print('Stop training.')
@@ -103,7 +103,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = 487
+batch_size = X_valid.shape[0]
 print('batch_size:', batch_size)
 
 batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
