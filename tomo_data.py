@@ -7,7 +7,7 @@ from ppf_data import *
 
 # ----------------------------------------------------------------------
 
-reliable_only = True
+reliable_only = False
 
 if reliable_only:
     fname = 'tomography_completed.reliable.ods'
