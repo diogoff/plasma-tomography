@@ -33,12 +33,13 @@ print('min_val_loss: %.6f' % min_val_loss)
 print('min_val_epoch:', min_val_epoch)
 
 (x_min, x_max) = plt.xlim()
+(y_min, y_max) = plt.ylim()
 
 plt.plot([x_min, min_val_epoch], [min_val_loss, min_val_loss], 'k--')
 plt.plot([min_val_epoch, min_val_epoch], [0., min_val_loss], 'k--')
 
-plt.xlim(0, 2500)
-plt.ylim(0., 0.035)
+plt.xlim(0, x_max)
+plt.ylim(0., y_max)
 
 plt.tight_layout()
 plt.show()
