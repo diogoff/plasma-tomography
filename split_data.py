@@ -64,8 +64,8 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 X_test, Y_test = get_XY(test_pulses)
 
-print('X_train:', X_train.shape, X_train.dtype)
-print('Y_train:', Y_train.shape, Y_train.dtype)
+print('X_test:', X_test.shape, X_test.dtype)
+print('Y_test:', Y_test.shape, Y_test.dtype)
 
 # ----------------------------------------------------------------------
 
