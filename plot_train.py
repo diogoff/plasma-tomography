@@ -20,7 +20,7 @@ plt.plot(epoch, loss, label='train loss')
 plt.plot(epoch, val_loss, label='validation loss')
 
 plt.xlabel('epoch')
-plt.ylabel('loss (MW m$^{-3}$)')
+plt.ylabel('mean absolute error (MW m$^{-3}$)')
 
 plt.legend()
 plt.grid()
