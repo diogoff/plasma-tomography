@@ -12,7 +12,7 @@ if len(sys.argv) > 1:
     i0 = int(sys.argv[1])
     print('i0:', i0)
 
-i1 = 0
+i1 = 195
 if len(sys.argv) > 2:
     i1 = int(sys.argv[2])
     print('i1:', i1)
@@ -22,7 +22,7 @@ if len(sys.argv) > 3:
     j0 = int(sys.argv[3])
     print('j0:', j0)
 
-j1 = 0
+j1 = 114
 if len(sys.argv) > 4:
     j1 = int(sys.argv[4])
     print('j1:', j1)
