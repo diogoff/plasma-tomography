@@ -91,7 +91,7 @@ R1 = 3.988 + 3*0.02
 Z0 = -1.77 - 2*0.02
 Z1 = +2.13 + 2*0.02
 
-im = plt.imshow(frames[0], cmap='inferno',#get_cmap(),
+im = plt.imshow(frames[0], cmap=get_cmap(),
                 vmin=0., vmax=vmax,
                 extent=[R0, R1, Z0, Z1],
                 interpolation='bilinear',
