@@ -4,7 +4,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Requirements
 
-- Keras 2.1.2, TensorFlow 1.4.1 (minimum)
+- Python 2.7, Keras 2.2.4, TensorFlow 1.13.1
 
 - Configure `~/.keras/keras.json` as follows:
 
@@ -20,47 +20,47 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `tomo_data.py` to get all the available tomographic reconstructions for training.
+1. Run `python tomo_data.py` to get all the available tomographic reconstructions for training.
 
     - This script will only run on the JET computing cluster (e.g. Freia).
     
     - An output file `tomo_data.hdf` will be created.
 
-2. Run `split_data.py` to split the data into training/validation/test sets.
+2. Run `python split_data.py` to split the data into training/validation/test sets.
 
     - This will create three datasets: (`X_train.npy`, `Y_train.npy`), (`X_valid.npy`, `Y_valid.npy`) and (`X_test.npy`, `Y_test.npy`).
 
-3. Run `model_train.py` to train the model.
+3. Run `python model_train.py` to train the model.
 
     - Training will finish automatically once the validation loss no longer improves.
     
     - The best model will be saved in `model.hdf`.
 
-4. After (or during) training, run `plot_train.py` to plot the loss and validation loss across epochs.
+4. After (or during) training, run `python plot_train.py` to plot the loss and validation loss across epochs.
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `model_valid.py` to test the model on the validation and test sets.
+5. After training, run `python model_valid.py` to test the model on the validation and test sets.
 
     - Check that the reported `loss` for the validation set is the same as indicated by `plot_train.py`.
 
-6. Run `bolo_data.py 92213` to get the bolometer data for a test pulse.
+6. Run `python bolo_data.py 92213` to get the bolometer data for a test pulse.
 
     - Since this script will grab the bolometer data for the test pulse, it needs to run on the JET computing cluster.
 
     - The data will be appended to `bolo_data.hdf`. This file will be created, if it does not exist.
     
-7. Run `model_predict.py` to generate the reconstructions for the pulses in `bolo_data.hdf`.
+7. Run `python model_predict.py` to generate the reconstructions for the pulses in `bolo_data.hdf`.
 
     - The results will be appended to each test pulse in `bolo_data.hdf`.
 
-8. Run `plot_frames.py 92213 46.40 54.70 0.01` to plot the reconstructions from `bolo_data.hdf`.
+8. Run `python plot_frames.py 92213 46.40 54.70 0.01` to plot the reconstructions from `bolo_data.hdf`.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the plots.
 
     - If needed, adjust `vmax` to change the dynamic range of the plots (in MW/m3).
 
-9. Run `plot_movie.py 92213 46.40 54.70 0.01` to produce a movie of the reconstructions for a pulse.
+9. Run `python plot_movie.py 92213 46.40 54.70 0.01` to produce a movie of the reconstructions for a pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the movie.
 
