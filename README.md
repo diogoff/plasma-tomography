@@ -70,7 +70,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### References
 
-- D.R. Ferreira, P.J. Carvalho, H. Fernandes, [Deep Learning for Plasma Tomography and Disruption Prediction from Bolometer Data](https://arxiv.org/pdf/1910.13257.pdf), IEEE Transactions on Plasma Science, 2019 ([to appear](https://www.tandfonline.com/action/downloadCitation?doi=10.1080/15361055.2017.1390386&format=bibtex))
+- D.R. Ferreira, P.J. Carvalho, H. Fernandes, [Deep Learning for Plasma Tomography and Disruption Prediction from Bolometer Data](https://arxiv.org/pdf/1910.13257.pdf), IEEE Transactions on Plasma Science, 2019 ([to appear](https://ieeexplore.ieee.org/document/8882311))
 
 - D.R. Ferreira, P.J. Carvalho, H. Fernandes, [Full-Pulse Tomographic Reconstruction with Deep Neural Networks](https://arxiv.org/pdf/1802.02242.pdf), Fusion Science and Technology, vol. 74, no. 1-2, pp. 47-56, 2018 [[BibTeX](https://www.tandfonline.com/action/downloadCitation?doi=10.1080/15361055.2017.1390386&format=bibtex)]
 
