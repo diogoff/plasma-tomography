@@ -28,7 +28,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `python3 model_valid.py` to test the model on the validation and test sets.
+5. After training, run `python3 tomo_valid.py` to test the model on the validation set.
 
     - Check that the reported `loss` for the validation set is the same as indicated by `plot_train.py`.
 
