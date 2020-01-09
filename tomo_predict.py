@@ -1,7 +1,7 @@
-from __future__ import print_function
 
 import h5py
 import numpy as np
+from tensorflow.keras.models import load_model
 
 # ----------------------------------------------------------------------
 
@@ -23,11 +23,11 @@ f.close()
 
 # ----------------------------------------------------------------------
 
-from keras.models import load_model
-
-fname = 'model.hdf'
+fname = 'tomo_model.hdf'
 print('Reading:', fname)
 model = load_model(fname)    
+
+model.summary()
 
 # ----------------------------------------------------------------------
 
