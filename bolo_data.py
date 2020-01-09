@@ -29,11 +29,11 @@ for pulse in pulses:
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))
 
+    dt = 0.005
     new_t = np.arange(40., bolo_t[-1]-dt, dt)
-    print(new_t)
-    exit()
-
-
+    bolo, bolo_t = jetdata.resample(bolo, bolo_t, new_t)
+    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
+    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))
     
     pulse = str(pulse)
     if pulse in f:
@@ -42,6 +42,7 @@ for pulse in pulses:
     g = f.create_group(pulse)
     g.create_dataset('bolo', data=bolo)
     g.create_dataset('bolo_t', data=bolo_t)
+    print('-'*50)
 
 # ----------------------------------------------------------------------
 
