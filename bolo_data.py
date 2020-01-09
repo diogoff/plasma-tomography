@@ -1,9 +1,8 @@
-from __future__ import print_function
 
 import sys
 import h5py
+import jetdata
 import numpy as np
-from ppf_data import *
 
 # ----------------------------------------------------------------------
 
@@ -24,13 +23,23 @@ f = h5py.File(fname, 'a')
 
 for pulse in pulses:
 
-    bolo, bolo_t = get_bolo(pulse)
-    
-    k = str(pulse)
-    if k in f:
-        del f[k]
+    bolo, bolo_t = jetdata.get_bolo(pulse)
+    if len(bolo) == 0:
+        continue
+    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
+    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))
 
-    g = f.create_group(k)
+    new_t = np.arange(40., bolo_t[-1]-dt, dt)
+    print(new_t)
+    exit()
+
+
+    
+    pulse = str(pulse)
+    if pulse in f:
+        del f[pulse]
+
+    g = f.create_group(pulse)
     g.create_dataset('bolo', data=bolo)
     g.create_dataset('bolo_t', data=bolo_t)
 
