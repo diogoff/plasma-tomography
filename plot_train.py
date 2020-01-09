@@ -1,10 +1,9 @@
-from __future__ import print_function
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-fname = 'train.log'
+fname = 'tomo_train.log'
 print('Reading:', fname)
 df = pd.read_csv(fname)
 
@@ -42,4 +41,7 @@ plt.xlim(0, x_max)
 plt.ylim(0., y_max)
 
 plt.tight_layout()
-plt.show()
+
+fname = 'plot_train.png'
+print('Writing:', fname)
+plt.savefig(fname)

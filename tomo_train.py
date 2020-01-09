@@ -73,7 +73,12 @@ class MyCallback(Callback):
         self.min_val_loss = None
         self.min_val_epoch = None
         self.min_val_weights = None
+        fname = 'tomo_train.log'
+        print('Writing:', fname)
+        self.log = open(fname, 'w')
         print('%-10s %10s %10s %10s' % ('time', 'epoch', 'loss', 'val_loss'))
+        self.log.write('time,epoch,loss,val_loss\n')
+        self.log.flush()
         
     def on_epoch_end(self, epoch, logs=None):
         t = time.strftime('%H:%M:%S')
@@ -86,12 +91,17 @@ class MyCallback(Callback):
             print('%-10s %10d %10.6f %10.6f *' % (t, epoch, loss, val_loss))
         else:
             print('%-10s %10d %10.6f %10.6f' % (t, epoch, loss, val_loss))
+        self.log.write('%s,%d,%f,%f\n' % (t, epoch, loss, val_loss))
+        self.log.flush()
         if epoch > 2*self.min_val_epoch:
             print('Stop training.')
             self.model.stop_training = True
 
+    def on_train_end(self, logs=None):
+        self.log.close()
+
     def get_weights(self):
-        return self.min_val_weights
+        return self.min_val_weights        
 
 # ----------------------------------------------------------------------
 
@@ -108,22 +118,18 @@ epochs = 10000
 
 mc = MyCallback()
 
-try:
-    model.fit(X_train, Y_train,
-              batch_size=batch_size,
-              epochs=epochs,
-              verbose=0,
-              callbacks=[mc],
-              validation_data=(X_valid, Y_valid))
-
-except KeyboardInterrupt:
-    print('\nTraining interrupted.')
+model.fit(X_train, Y_train,
+          batch_size=batch_size,
+          epochs=epochs,
+          verbose=0,
+          callbacks=[mc],
+          validation_data=(X_valid, Y_valid))
 
 print('Loading weights.')
 model.set_weights(mc.get_weights())
 
 # ----------------------------------------------------------------------
 
-fname = 'model.hdf'
+fname = 'tomo_model.hdf'
 print('Writing:', fname)
 model.save(fname)

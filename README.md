@@ -18,11 +18,11 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - This will create two datasets: (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
 
-3. Run `python3 model_train.py` to train the model.
+3. Run `python3 tomo_train.py` to train the model.
 
     - Training will finish automatically once the validation loss no longer improves.
     
-    - The best model will be saved in `model.hdf`.
+    - The model will be saved in `tomo_model.hdf`.
 
 4. After (or during) training, run `python3 plot_train.py` to plot the loss and validation loss across epochs.
 
