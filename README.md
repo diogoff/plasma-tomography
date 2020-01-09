@@ -10,7 +10,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 1. Run `python3 tomo_data.py` to get all the available tomographic reconstructions for training.
 
-    - This script will only run on the JET computing cluster (e.g. Freia).
+    - This script will only run on a JET computing cluster (e.g. Freia).
     
     - An output file `tomo_data.hdf` will be created.
 
@@ -34,21 +34,21 @@ This repository contains a neural network that produces tomographic reconstructi
 
 6. Run `python3 bolo_data.py 92213` to get the bolometer data for a test pulse.
 
-    - Since this script will grab the bolometer data for the test pulse, it needs to run on the JET computing cluster.
+    - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster.
 
     - The data will be appended to `bolo_data.hdf`. This file will be created, if it does not exist.
     
-7. Run `python3 model_predict.py` to generate the reconstructions for the pulses in `bolo_data.hdf`.
+7. Run `python3 tomo_predict.py` to generate the reconstructions for the pulses in `bolo_data.hdf`.
 
     - The results will be appended to each test pulse in `bolo_data.hdf`.
 
-8. Run `python3 plot_frames.py 92213 46.40 54.70 0.01` to plot the reconstructions from `bolo_data.hdf`.
+8. Run `python3 plot_frames.py 92213 48.0 54.0 0.01` to plot the reconstructions from `bolo_data.hdf`.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the plots.
 
     - If needed, adjust `vmax` to change the dynamic range of the plots (in MW/m3).
 
-9. Run `python3 plot_movie.py 92213 46.40 54.70 0.01` to produce a movie of the reconstructions for a pulse.
+9. Run `python3 plot_movie.py 92213 48.0 54.0 0.01` to produce a movie of the reconstructions for a pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the movie.
 

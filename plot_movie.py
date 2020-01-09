@@ -12,7 +12,7 @@ from cmap import *
 
 if len(sys.argv) < 5:
     print('Usage: %s pulse t0 t1 dt' % sys.argv[0])
-    print('Example: %s 92213 46.40 54.79 0.01' % sys.argv[0])
+    print('Example: %s 92213 48.0 54.0 0.01' % sys.argv[0])
     exit()
 
 # ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ digits = len(str(dt).split('.')[-1])
 
 vmax = 1.0
 
-fps = 30
+fps = 15
 
 # ----------------------------------------------------------------------
 
@@ -41,9 +41,7 @@ fname = 'bolo_data.hdf'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
-k = str(pulse)
-
-g = f[k]
+g = f[str(pulse)]
 tomo = g['tomo'][:]
 tomo_t = g['tomo_t'][:]
 
@@ -65,7 +63,7 @@ if t1 > tomo_t[-1]:
 frames = []
 frames_t = []
 
-for t in np.arange(t0, t1+dt/2., dt):
+for t in np.arange(t0, t1, dt):
     i = np.argmin(np.fabs(tomo_t - t))
     frames.append(tomo[i])
     frames_t.append(tomo_t[i])
