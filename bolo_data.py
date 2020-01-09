@@ -1,16 +1,25 @@
 
-import sys
 import h5py
 import jetdata
 import numpy as np
 
 # ----------------------------------------------------------------------
 
-if len(sys.argv) < 2:
-    print('Usage: %s pulse pulse pulse ...' % sys.argv[0])
-    exit()
-    
-pulses = [int(pulse) for pulse in sys.argv[1:]]
+pulses = [94988,
+          95128,
+          95131,
+          95132,
+          95135,
+          95136,
+          95137,
+          95174,
+          95725,
+          95727,
+          95729,
+          95733,
+          96254,
+          96256]
+
 print('pulses:', pulses)
 
 # ----------------------------------------------------------------------
@@ -24,17 +33,9 @@ f = h5py.File(fname, 'a')
 for pulse in pulses:
 
     bolo, bolo_t = jetdata.get_bolo(pulse)
-    if len(bolo) == 0:
-        continue
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))
 
-    dt = 0.005
-    new_t = np.arange(40., bolo_t[-1]-dt, dt)
-    bolo, bolo_t = jetdata.resample(bolo, bolo_t, new_t)
-    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
-    print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))
-    
     pulse = str(pulse)
     if pulse in f:
         del f[pulse]
