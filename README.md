@@ -8,7 +8,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `python3 get_data.py` to get the available tomographic reconstructions and the bolometer signals for the same pulses.
+1. Run `python3 get_data.py` to get the available tomographic reconstructions and bolometer signals.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
