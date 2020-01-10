@@ -35,24 +35,24 @@ with strategy.scope():
 
     model = Sequential()
 
-    model.add(Dense(25*15*20, input_shape=(56,)))
+    model.add(Dense(25*15*10, input_shape=(56,)))
     model.add(Activation('relu'))
 
-    model.add(Dense(25*15*20))
+    model.add(Dense(25*15*10))
     model.add(Activation('relu'))
 
-    model.add(Reshape((25,15,20)))
+    model.add(Reshape((25,15,10)))
 
-    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2D(1, kernel_size=(3,3), strides=(1,1), padding='same'))
+    model.add(Conv2D(1, kernel_size=(1,1), strides=(1,1), padding='same'))
     model.add(Activation('relu'))
 
     model.add(Lambda(lambda t: t[:,2:-2,2:-3,0]))
@@ -130,6 +130,6 @@ model.set_weights(mc.get_weights())
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_model.hdf'
+fname = 'tomo_model'
 print('Writing:', fname)
 model.save(fname)
