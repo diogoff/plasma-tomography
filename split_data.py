@@ -1,5 +1,6 @@
 
 import h5py
+import tqdm
 import numpy as np
 
 # ----------------------------------------------------------------------
@@ -17,8 +18,8 @@ N = 10
 
 r = np.arange(len(pulses))
 
-i_train = r[(r % N) != N-1]
-i_valid = r[(r % N) == N-1]
+i_train = r[(r % N) != 0]
+i_valid = r[(r % N) == 0]
 
 train_pulses = pulses[i_train]
 valid_pulses = pulses[i_valid]
@@ -31,11 +32,11 @@ print('valid_pulses:', len(valid_pulses))
 def get_XY(pulses):
     X = []
     Y = []
-    for pulse in pulses:
+    for pulse in tqdm.tqdm(pulses):
         g = f[pulse]
-        tomo = g['tomo'][:]
+        tomo = np.clip(g['tomo'][:], 0., None)/1e6
+        bolo = np.clip(g['bolo'][:], 0., None)/1e6
         tomo_t = g['tomo_t'][:]
-        bolo = g['bolo'][:]
         bolo_t = g['bolo_t'][:]
         for i in range(tomo.shape[0]):
             t = tomo_t[i]

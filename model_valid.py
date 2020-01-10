@@ -16,7 +16,7 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_model.hdf'
+fname = 'model.h5'
 print('Reading:', fname)
 model = load_model(fname)    
 

@@ -8,7 +8,7 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `python3 tomo_data.py` to get all the available tomographic reconstructions for training.
+1. Run `python3 get_data.py` to get the available tomographic reconstructions and the bolometer signals for the same pulses.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
@@ -18,41 +18,27 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - This will create two datasets: (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
 
-3. Run `python3 tomo_train.py` to train the model.
+3. Run `python3 model_train.py` to train the model.
 
     - Training will finish automatically once the validation loss no longer improves.
     
-    - The model will be saved in `tomo_model.hdf`.
+    - The model will be saved in `model.h5`.
 
 4. After (or during) training, run `python3 plot_train.py` to plot the loss and validation loss across epochs.
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `python3 tomo_valid.py` to test the model on the validation set.
+5. After training, run `python3 model_valid.py` to test the model on the validation set.
 
     - Check that the reported `loss` for the validation set is the same as indicated by `plot_train.py`.
 
-6. Run `python3 bolo_data.py 92213` to get the bolometer data for a test pulse.
+6. Run `python3 plot_frames.py 92213 48.0 54.0 0.01 1.0` to plot the reconstructions for a test pulse.
 
-    - Since this script will grab the bolometer data for the test pulse, it needs to run on a JET computing cluster.
+    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the plots.
 
-    - The data will be appended to `bolo_data.hdf`. This file will be created, if it does not exist.
-    
-7. Run `python3 tomo_predict.py` to generate the reconstructions for the pulses in `bolo_data.hdf`.
+7. Run `python3 plot_movie.py 92213 48.0 54.0 0.01 1.0` to produce a movie of the reconstructions for a test pulse.
 
-    - The results will be appended to each test pulse in `bolo_data.hdf`.
-
-8. Run `python3 plot_frames.py 92213 48.0 54.0 0.01` to plot the reconstructions from `bolo_data.hdf`.
-
-    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the plots.
-
-    - If needed, adjust `vmax` to change the dynamic range of the plots (in MW/m3).
-
-9. Run `python3 plot_movie.py 92213 48.0 54.0 0.01` to produce a movie of the reconstructions for a pulse.
-
-    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`) and time step (`dt`) for the movie.
-
-    - If needed, adjust `vmax` to change the dynamic range of the plots (in MW/m3).
+    - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the movie.
 
     - If needed, adjust `fps` to change the frame rate.
 

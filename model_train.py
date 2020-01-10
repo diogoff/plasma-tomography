@@ -34,25 +34,25 @@ strategy = tf.distribute.MirroredStrategy()
 with strategy.scope():
 
     model = Sequential()
-
-    model.add(Dense(25*15*10, input_shape=(56,)))
+    
+    model.add(Dense(25*15*20, input_shape=(56,)))
     model.add(Activation('relu'))
 
-    model.add(Dense(25*15*10))
+    model.add(Dense(25*15*20))
     model.add(Activation('relu'))
 
-    model.add(Reshape((25,15,10)))
+    model.add(Reshape((25,15,20)))
 
-    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2DTranspose(10, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2DTranspose(20, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(Activation('relu'))
 
-    model.add(Conv2D(1, kernel_size=(1,1), strides=(1,1), padding='same'))
+    model.add(Conv2D(1, kernel_size=(3,3), strides=(1,1), padding='same'))
     model.add(Activation('relu'))
 
     model.add(Lambda(lambda t: t[:,2:-2,2:-3,0]))
@@ -73,7 +73,7 @@ class MyCallback(Callback):
         self.min_val_loss = None
         self.min_val_epoch = None
         self.min_val_weights = None
-        fname = 'tomo_train.log'
+        fname = 'model_train.log'
         print('Writing:', fname)
         self.log = open(fname, 'w')
         print('%-10s %10s %10s %10s' % ('time', 'epoch', 'loss', 'val_loss'))
@@ -105,7 +105,7 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = 1864
+batch_size = 331*8
 print('batch_size:', batch_size)
 
 batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
@@ -130,6 +130,6 @@ model.set_weights(mc.get_weights())
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_model'
+fname = 'model.h5'
 print('Writing:', fname)
 model.save(fname)

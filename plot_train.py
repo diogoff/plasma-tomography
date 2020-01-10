@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-fname = 'tomo_train.log'
+fname = 'model_train.log'
 print('Reading:', fname)
 df = pd.read_csv(fname)
 
