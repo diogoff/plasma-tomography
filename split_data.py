@@ -34,21 +34,12 @@ def get_XY(pulses):
     Y = []
     for pulse in tqdm.tqdm(pulses):
         g = f[pulse]
-        tomo = np.clip(g['tomo'][:], 0., None)/1e6
-        bolo = np.clip(g['bolo'][:], 0., None)/1e6
-        tomo_t = g['tomo_t'][:]
-        bolo_t = g['bolo_t'][:]
-        for i in range(tomo.shape[0]):
-            t = tomo_t[i]
-            dt = 0.005
-            i0 = np.argmin(np.fabs(bolo_t - t))
-            i1 = np.argmin(np.fabs(bolo_t - (t + dt)))
-            x = np.mean(bolo[i0:i1+1], axis=0)
-            y = tomo[i]
-            X.append(x)
-            Y.append(y)
-    X = np.array(X)
-    Y = np.array(Y)
+        bolo = g['bolo'][:]
+        tomo = g['tomo'][:]
+        X.append(bolo)
+        Y.append(tomo)
+    X = np.concatenate(X, axis=0)
+    Y = np.concatenate(Y, axis=0)
     return X, Y
 
 # ----------------------------------------------------------------------
