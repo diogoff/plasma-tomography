@@ -105,14 +105,14 @@ class MyCallback(Callback):
 
 # ----------------------------------------------------------------------
 
-batch_size = 331*8
+batch_size = 2632
 print('batch_size:', batch_size)
 
-batch_ratio_train = float(X_train.shape[0]) / float(batch_size)
-batch_ratio_valid = float(X_valid.shape[0]) / float(batch_size)
+train_ratio = float(X_train.shape[0]) / float(batch_size)
+valid_ratio = float(X_valid.shape[0]) / float(batch_size)
 
-print('batch_ratio_train:', batch_ratio_train)
-print('batch_ratio_valid:', batch_ratio_valid)
+print('train_ratio: %20.6f' % train_ratio)
+print('valid_ratio: %20.6f' % valid_ratio)
 
 epochs = 10000
 

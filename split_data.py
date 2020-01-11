@@ -5,7 +5,7 @@ import numpy as np
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_data.hdf'
+fname = 'tomo_data.h5'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
@@ -18,8 +18,8 @@ N = 10
 
 r = np.arange(len(pulses))
 
-i_train = r[(r % N) != 0]
-i_valid = r[(r % N) == 0]
+i_train = r[(r % N) != N-1]
+i_valid = r[(r % N) == N-1]
 
 train_pulses = pulses[i_train]
 valid_pulses = pulses[i_valid]
@@ -34,8 +34,8 @@ def get_XY(pulses):
     Y = []
     for pulse in tqdm.tqdm(pulses):
         g = f[pulse]
-        bolo = g['bolo'][:]
-        tomo = g['tomo'][:]
+        bolo = np.clip(g['bolo'][:], 0., None) / 1e6
+        tomo = np.clip(g['tomo'][:], 0., None) / 1e6
         X.append(bolo)
         Y.append(tomo)
     X = np.concatenate(X, axis=0)

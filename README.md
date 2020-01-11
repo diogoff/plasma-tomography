@@ -8,35 +8,41 @@ This repository contains a neural network that produces tomographic reconstructi
 
 ### Instructions
 
-1. Run `python3 get_data.py` to get the available tomographic reconstructions and bolometer signals.
+1. Run `python3 tomo_data.py` to get all the available tomographic reconstructions and the corresponding bolometer signals.
 
     - This script will only run on a JET computing cluster (e.g. Freia).
     
-    - An output file `tomo_data.hdf` will be created.
+    - An output file `tomo_data.h5` will be created.
 
-2. Run `python3 split_data.py` to split the data into training/validation sets.
+2. Run `python3 split_data.py` to split the data into training set and validation set.
 
     - This will create two datasets: (`X_train.npy`, `Y_train.npy`) and (`X_valid.npy`, `Y_valid.npy`).
 
-3. Run `python3 model_train.py` to train the model.
+3. Run `python3 batch_size.py` to determine the batch size that should be used during training.
+
+    - Adjust `n_gpus` to reflect the number of GPUs to be used during training.
+
+4. Run `python3 model_train.py` to train the model.
+
+    - Adjust `batch_size` according to the result of the previous script.
 
     - Training will finish automatically once the validation loss no longer improves.
     
     - The model will be saved in `model.h5`.
 
-4. After (or during) training, run `python3 plot_train.py` to plot the loss and validation loss across epochs.
+5. After (or during) training, run `python3 plot_train.py` to plot the loss and validation loss across epochs.
 
     - The script will also indicate the epoch where the minimum validation loss was achieved.
     
-5. After training, run `python3 model_valid.py` to test the model on the validation set.
+6. After training, run `python3 model_valid.py` to test the model on the validation set.
 
     - Check that the reported `loss` for the validation set is the same as indicated by `plot_train.py`.
 
-6. Run `python3 plot_frames.py 92213 48.0 54.0 0.01 1.0` to plot the reconstructions for a test pulse.
+7. Run `python3 plot_frames.py 92213 48.0 54.0 0.01 1.0` to plot the reconstructions for a test pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the plots.
 
-7. Run `python3 plot_movie.py 92213 48.0 54.0 0.01 1.0` to produce a movie of the reconstructions for a test pulse.
+8. Run `python3 plot_movie.py 92213 48.0 54.0 0.01 1.0` to produce a movie of the reconstructions for a test pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the movie.
 
