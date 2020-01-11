@@ -3,10 +3,24 @@ import h5py
 import jetdata
 import numpy as np
 
+# ------------------------------------------------------------------------------
+
+def resample(bolo, bolo_t, new_t):
+    dt = 0.005
+    new = []
+    for t in new_t:
+        i0 = np.argmin(np.fabs(bolo_t - t))
+        i1 = np.argmin(np.fabs(bolo_t - (t + dt)))
+        new.append(np.mean(bolo[i0:i1+1], axis=0))
+    new = np.array(new)
+    return new, new_t
+
+# ------------------------------------------------------------------------------
+
 pulse0 = 80128
 pulse1 = 96563
 
-fname = 'tomo_data.hdf'
+fname = 'tomo_data.h5'
 print('Writing:', fname)
 f = h5py.File(fname, 'w')
 
@@ -24,7 +38,7 @@ for pulse in range(pulse0, pulse1+1):
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))    
 
-    bolo, bolo_t = jetdata.resample(bolo, bolo_t, tomo_t)
+    bolo, bolo_t = resample(bolo, bolo_t, tomo_t)
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))    
 
