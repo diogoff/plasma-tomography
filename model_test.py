@@ -1,13 +1,13 @@
 
 import h5py
 import numpy as np
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 
 # ----------------------------------------------------------------------
 
 fname = 'model.h5'
 print('Reading:', fname)
-model = load_model(fname)    
+model = tf.keras.models.load_model(fname)
 
 model.summary()
 
@@ -27,7 +27,7 @@ for pulse in f:
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo', bolo.shape, bolo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'bolo_t', bolo_t.shape, bolo_t.dtype))    
     
-    tomo = model.predict(bolo, batch_size=500, verbose=1)*1e6
+    tomo = model.predict(bolo, batch_size=1000, verbose=1)*1e6
     tomo_t = bolo_t
     print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo', tomo.shape, tomo.dtype))
     print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo_t', tomo_t.shape, tomo_t.dtype))    

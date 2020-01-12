@@ -1,6 +1,6 @@
 
 import numpy as np
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 
 # ----------------------------------------------------------------------
 
@@ -18,13 +18,13 @@ print('Y_valid:', Y_valid.shape, Y_valid.dtype)
 
 fname = 'model.h5'
 print('Reading:', fname)
-model = load_model(fname)    
+model = tf.keras.models.load_model(fname)
 
 model.summary()
 
 # ----------------------------------------------------------------------
 
-Y_pred = model.predict(X_valid, batch_size=500, verbose=1)
+Y_pred = model.predict(X_valid, batch_size=1000, verbose=1)
 
 print('Y_pred:', Y_pred.shape)
 
