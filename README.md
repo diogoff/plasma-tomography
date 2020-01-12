@@ -38,11 +38,21 @@ This repository contains a neural network that produces tomographic reconstructi
 
     - Check that the reported `loss` for the validation set is the same as indicated by `plot_train.py`.
 
-7. Run `python3 plot_frames.py 92213 48.0 54.0 0.01 1.0` to plot the reconstructions for a test pulse.
+7. Run `python3 bolo_data.py` to collect the bolometer signals for a set or range of test pulses.
+
+    - This script will only run on a JET computing cluster (e.g. Freia).
+    
+    - An output file `bolo_data.h5` will be created.
+
+8. Run `python3 model_predict.py` to compute the full-pulse reconstructions for all test pulses.
+
+    - The results will be appended to `bolo_data.h5`.
+
+9. Run `python3 plot_frames.py 92213 48.0 54.0 0.01 1.0` to plot the reconstructions for a test pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the plots.
 
-8. Run `python3 plot_movie.py 92213 48.0 54.0 0.01 1.0` to produce a movie of the reconstructions for a test pulse.
+10. Run `python3 plot_movie.py 92213 48.0 54.0 0.01 1.0` to produce a movie of the reconstructions for a test pulse.
 
     - The command-line arguments specify the pulse, start time (`t0`), end time (`t1`), time step (`dt`) and dynamic range (`vmax` in MW/m3) for the movie.
 

@@ -22,7 +22,7 @@ for arg in sys.argv[1:]:
     else:
         pulses.append(int(arg))
 
-pulses = sorted(pulses)
+pulses = sorted(set(pulses))
 
 # ------------------------------------------------------------------------------
 

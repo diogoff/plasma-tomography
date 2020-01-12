@@ -38,58 +38,44 @@ fps = 15
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_data.hdf'
+fname = 'bolo_data.h5'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
 g = f[str(pulse)]
-bolo = np.clip(g['bolo'][:], 0., None)/1e6
-bolo_t = g['bolo_t'][:]
+tomo = np.clip(g['tomo'][:], 0., None)/1e6
+tomo_t = g['tomo_t'][:]
+
+print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo', tomo.shape, tomo.dtype))
+print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo_t', tomo_t.shape, tomo_t.dtype))    
 
 f.close()
 
 # ----------------------------------------------------------------------
 
-if t0 < bolo_t[0]:
-    t0 = bolo_t[0]
+if t0 < tomo_t[0]:
+    t0 = tomo_t[0]
+    print('t0:', t0, '(overwrite)')
 
-if t1 > bolo_t[-1]:
-    t1 = bolo_t[-1]
+if t1 > tomo_t[-1]:
+    t1 = tomo_t[-1]
+    print('t1:', t1, '(overwrite)')
 
 # ----------------------------------------------------------------------
 
-X = []
-X_t = []
+frames = []
+frames_t = []
 
 for t in np.arange(t0, t1, dt):
-    dt = 0.005
-    i0 = np.argmin(np.fabs(bolo_t - t))
-    i1 = np.argmin(np.fabs(bolo_t - (t + dt)))
-    x = np.mean(bolo[i0:i1+1], axis=0)
-    X.append(x)
-    X_t.append(t)
+    i = np.argmin(np.fabs(tomo_t - t))
+    frames.append(tomo[i])
+    frames_t.append(tomo_t[i])
 
-X = np.array(X)
-X_t = np.array(X_t)
+frames = np.array(frames)
+frames_t = np.array(frames_t)    
 
-print('X:', X.shape, X.dtype)
-print('X_t:', X_t.shape, X_t.dtype)
-
-# ----------------------------------------------------------------------
-
-fname = 'model.h5'
-print('Reading:', fname)
-model = load_model(fname)    
-
-model.summary()
-
-# ----------------------------------------------------------------------
-
-Y = model.predict(X, batch_size=500, verbose=1)
-Y_t = X_t
-
-print('Y:', Y.shape, Y.dtype)
-print('Y_t:', Y_t.shape, Y_t.dtype)
+print('%-10s %-10s %-20s %-10s' % (pulse, 'frames', frames.shape, frames.dtype))
+print('%-10s %-10s %-20s %-10s' % (pulse, 'frames_t', frames_t.shape, frames_t.dtype))    
 
 # ----------------------------------------------------------------------
 
@@ -106,7 +92,7 @@ R1 = 3.988 + 3*0.02
 Z0 = -1.77 - 2*0.02
 Z1 = +2.13 + 2*0.02
 
-im = plt.imshow(Y[0], cmap=get_cmap(),
+im = plt.imshow(frames[0], cmap=get_cmap(),
                 vmin=0., vmax=vmax,
                 extent=[R0, R1, Z0, Z1],
                 interpolation='bilinear',
@@ -122,7 +108,7 @@ cb.ax.set_ylabel('MW/m3', fontsize=fontsize)
 fig = plt.gcf()
 ax = plt.gca()
 
-title = 'Pulse %s t=%.*fs' % (pulse, digits, Y_t[0])
+title = 'Pulse %s t=%.*fs' % (pulse, digits, frames_t[0])
 ax.set_title(title, fontsize=fontsize)
 ax.tick_params(labelsize=fontsize)
 ax.set_xlabel('R (m)', fontsize=fontsize)
@@ -134,12 +120,12 @@ plt.setp(ax.spines.values(), linewidth=0.1)
 plt.tight_layout()
 
 def animate(k):
-    title = 'Pulse %s t=%.*fs' % (pulse, digits, Y_t[k])
+    title = 'Pulse %s t=%.*fs' % (pulse, digits, frames_t[k])
     ax.set_title(title, fontsize=fontsize)
-    im.set_data(Y[k])
+    im.set_data(frames[k])
 
-animation = ani.FuncAnimation(fig, animate, frames=range(Y.shape[0]))
+animation = ani.FuncAnimation(fig, animate, frames=range(frames.shape[0]))
 
-fname = '%s/%s_%.*f_%.*f.mp4' % (path, pulse, digits, Y_t[0], digits, Y_t[-1])
+fname = '%s/%s_%.*f_%.*f.mp4' % (path, pulse, digits, frames_t[0], digits, frames_t[-1])
 print('Writing:', fname)
 animation.save(fname, fps=fps, extra_args=['-vcodec', 'libx264'])

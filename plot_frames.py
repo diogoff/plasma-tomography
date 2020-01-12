@@ -35,58 +35,44 @@ print('vmax:', vmax)
 
 # ----------------------------------------------------------------------
 
-fname = 'tomo_data.hdf'
+fname = 'bolo_data.h5'
 print('Reading:', fname)
 f = h5py.File(fname, 'r')
 
 g = f[str(pulse)]
-bolo = np.clip(g['bolo'][:], 0., None)/1e6
-bolo_t = g['bolo_t'][:]
+tomo = np.clip(g['tomo'][:], 0., None)/1e6
+tomo_t = g['tomo_t'][:]
+
+print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo', tomo.shape, tomo.dtype))
+print('%-10s %-10s %-20s %-10s' % (pulse, 'tomo_t', tomo_t.shape, tomo_t.dtype))    
 
 f.close()
 
 # ----------------------------------------------------------------------
 
-if t0 < bolo_t[0]:
-    t0 = bolo_t[0]
+if t0 < tomo_t[0]:
+    t0 = tomo_t[0]
+    print('t0:', t0, '(overwrite)')
 
-if t1 > bolo_t[-1]:
-    t1 = bolo_t[-1]
+if t1 > tomo_t[-1]:
+    t1 = tomo_t[-1]
+    print('t1:', t1, '(overwrite)')
 
 # ----------------------------------------------------------------------
 
-X = []
-X_t = []
+frames = []
+frames_t = []
 
 for t in np.arange(t0, t1, dt):
-    dt = 0.005
-    i0 = np.argmin(np.fabs(bolo_t - t))
-    i1 = np.argmin(np.fabs(bolo_t - (t + dt)))
-    x = np.mean(bolo[i0:i1+1], axis=0)
-    X.append(x)
-    X_t.append(t)
+    i = np.argmin(np.fabs(tomo_t - t))
+    frames.append(tomo[i])
+    frames_t.append(tomo_t[i])
 
-X = np.array(X)
-X_t = np.array(X_t)
+frames = np.array(frames)
+frames_t = np.array(frames_t)    
 
-print('X:', X.shape, X.dtype)
-print('X_t:', X_t.shape, X_t.dtype)
-
-# ----------------------------------------------------------------------
-
-fname = 'model.h5'
-print('Reading:', fname)
-model = load_model(fname)    
-
-model.summary()
-
-# ----------------------------------------------------------------------
-
-Y = model.predict(X, batch_size=500, verbose=1)
-Y_t = X_t
-
-print('Y:', Y.shape, Y.dtype)
-print('Y_t:', Y_t.shape, Y_t.dtype)
+print('%-10s %-10s %-20s %-10s' % (pulse, 'frames', frames.shape, frames.dtype))
+print('%-10s %-10s %-20s %-10s' % (pulse, 'frames_t', frames_t.shape, frames_t.dtype))    
 
 # ----------------------------------------------------------------------
 
@@ -104,16 +90,16 @@ ncols = 15
 
 k = 0
 
-while k < Y.shape[0]:
+while k < frames.shape[0]:
     k0 = k
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols)
     for i in range(nrows):
         for j in range(ncols):
-            if k < Y.shape[0]:
-                im = ax[i,j].imshow(Y[k], cmap=get_cmap(),
+            if k < frames.shape[0]:
+                im = ax[i,j].imshow(frames[k], cmap=get_cmap(),
                                     vmin=0., vmax=vmax,
                                     interpolation='bilinear')
-                title = 't=%.*fs' % (digits, Y_t[k])
+                title = 't=%.*fs' % (digits, frames_t[k])
                 ax[i,j].set_title(title, fontsize='small')
                 ax[i,j].set_axis_off()
                 k1 = k
@@ -122,8 +108,8 @@ while k < Y.shape[0]:
                 ax[i,j].set_axis_off()
     fig.set_size_inches(w, h)
     plt.subplots_adjust(left=0.001, right=1.-0.001, bottom=0.001, top=1.-0.028, wspace=0.01, hspace=0.14)
-    fname = '%s/%s_%.*f_%.*f_%.*f.png' % (path, pulse, digits, Y_t[k0], digits, Y_t[k1], digits, dt)
-    print('Writing:', fname, '(%d frames)' % (k-k0), '[total: %*d]' % (len(str(Y.shape[0])), k))
+    fname = '%s/%s_%.*f_%.*f_%.*f.png' % (path, pulse, digits, frames_t[k0], digits, frames_t[k1], digits, dt)
+    print('Writing:', fname, '(%d frames)' % (k-k0), '[total: %*d]' % (len(str(frames.shape[0])), k))
     plt.savefig(fname)
     plt.cla()
     plt.clf()

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#PBS -q gpu
+#PBS -l select=1:ncpus=16:ngpus=8:mem=250gb
+#PBS -l walltime=24:00:00
+#PBS -N model_train
+#PBS -j oe
+#PBS -o model_train.out
+
+cd $PBS_O_WORKDIR
+
+python3 model_train.py
